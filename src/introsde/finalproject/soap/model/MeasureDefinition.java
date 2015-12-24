@@ -1,8 +1,6 @@
 package introsde.finalproject.soap.model;
 
 import introsde.finalproject.soap.dao.LifeCoachDao;
-import introsde.finalproject.soap.model.MeasureDefaultRange;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -33,9 +31,15 @@ public class MeasureDefinition implements Serializable {
 
 	@Column(name="measureType")
 	private String measureType;
-
-	@OneToMany(mappedBy="measureDefinition")
-	private List<MeasureDefaultRange> measureDefaultRange;
+	
+	@Column(name="startValue")
+	private String startValue;
+	
+	@Column(name="endValue")
+	private String endValue;
+	
+	@Column(name="alarmLevel")
+	private String alarmLevel;
 
 	public MeasureDefinition() {
 	}
@@ -65,12 +69,28 @@ public class MeasureDefinition implements Serializable {
 		this.measureType = measureType;
 	}
 
-	public List<MeasureDefaultRange> getMeasureDefaultRange() {
-	    return measureDefaultRange;
+	public String getStartValue() {
+		return this.startValue;
 	}
 
-	public void setMeasureDefaultRange(List<MeasureDefaultRange> param) {
-	    this.measureDefaultRange = param;
+	public void setStartValue(String startValue) {
+		this.startValue = startValue;
+	}
+	
+	public String getEndValue() {
+		return this.endValue;
+	}
+
+	public void setEndValue(String endValue) {
+		this.endValue = endValue;
+	}
+	
+	public String getAlarmLevel() {
+		return this.alarmLevel;
+	}
+
+	public void setAlarmLevel(String alarmLevel) {
+		this.alarmLevel = alarmLevel;
 	}
 
 	// database operations
