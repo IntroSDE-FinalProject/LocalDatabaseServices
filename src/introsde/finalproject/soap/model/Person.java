@@ -1,7 +1,7 @@
 package introsde.finalproject.soap.model;
 
 import introsde.finalproject.soap.dao.LifeCoachDao;
-import introsde.finalproject.soap.model.LifeStatus;
+import introsde.finalproject.soap.model.Measure;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -33,7 +33,7 @@ import java.util.Locale;
 //	@NamedQuery(name="Person.readHistory", query="SELECT h FROM HealthMeasureHistory h "
 //												+ "WHERE h.person = ?1 AND h.measureType LIKE ?2")
 })
-@XmlType(propOrder={"firstname", "lastname" , "birthdate", "email", "fiscalcode", "gender", "lifeStatus"})
+@XmlType(propOrder={"firstname", "lastname" , "birthdate", "email", "fiscalcode", "gender", "Measure"})
 public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -69,9 +69,9 @@ public class Person implements Serializable {
     @Column(name="gender")
     private String gender;
     
-    // mappedBy must be equal to the name of the attribute in LifeStatus that maps this relation
+    // mappedBy must be equal to the name of the attribute in Measure that maps this relation
     @OneToMany(mappedBy="person",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    private List<LifeStatus> lifeStatus;
+    private List<Measure> Measure;
     
     public Person() {
     }
@@ -141,15 +141,15 @@ public class Person implements Serializable {
     }
     
 
-    // the XmlElementWrapper defines the name of node in which the list of LifeStatus elements
+    // the XmlElementWrapper defines the name of node in which the list of Measure elements
     // will be inserted
     @XmlElementWrapper(name = "Measurements")
-    public List<LifeStatus> getLifeStatus() {
-        return lifeStatus;
+    public List<Measure> getMeasure() {
+        return Measure;
     }
 
-    public void setLifeStatus(List<LifeStatus> param) {
-        this.lifeStatus = param;
+    public void setMeasure(List<Measure> param) {
+        this.Measure = param;
     }
     
     // Database operations

@@ -1,5 +1,5 @@
 package introsde.finalproject.soap.ws;
-import introsde.finalproject.soap.model.LifeStatus;
+import introsde.finalproject.soap.model.Measure;
 import introsde.finalproject.soap.model.Person;
 
 import java.util.List;
@@ -37,5 +37,5 @@ public interface People {
     
     @WebMethod(operationName="updatePersonHealthProfile")
     @WebResult(name="hpId") 
-    public int updatePersonHP(@WebParam(name="personId") int id, @WebParam(name="healthProfile") LifeStatus hp);
+    public int updatePersonHP(@WebParam(name="personId") int id, @WebParam(name="healthProfile") Measure hp);
 }

@@ -4,6 +4,7 @@ import introsde.finalproject.soap.dao.LifeCoachDao;
 import introsde.finalproject.soap.model.MeasureDefinition;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -17,30 +18,35 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.persistence.OneToOne;
 
 /**
- * The persistent class for the "LifeStatus" database table.
+ * The persistent class for the "Measure" database table.
  * 
  */
 @Entity
-@Table(name = "LifeStatus")
-@NamedQuery(name = "LifeStatus.findAll", query = "SELECT l FROM LifeStatus l")
-public class LifeStatus implements Serializable {
+@Table(name = "Measure")
+@NamedQuery(name = "Measure.findAll", query = "SELECT l FROM Measure l")
+public class Measure implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(generator="sqlite_lifestatus")
-	@TableGenerator(name="sqlite_lifestatus", table="sqlite_sequence",
+	@GeneratedValue(generator="sqlite_measure")
+	@TableGenerator(name="sqlite_measure", table="sqlite_sequence",
 	    pkColumnName="name", valueColumnName="seq",
-	    pkColumnValue="LifeStatus")
+	    pkColumnValue="Measure")
 	@Column(name = "idMeasure")
 	private int idMeasure;
 
 	@Column(name = "value")
 	private String value;
+	
+	@Temporal(TemporalType.DATE)
+    @Column(name="timestamp")
+    private Date timestamp;
 	
 	@OneToOne
 	@JoinColumn(name = "idMeasureDef", referencedColumnName = "idMeasureDef", insertable = true, updatable = true)
@@ -49,8 +55,8 @@ public class LifeStatus implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idPerson",referencedColumnName="idPerson")
 	private Person person;
-
-	public LifeStatus() {
+	
+	public Measure() {
 	}
 
 	public int getIdMeasure() {
@@ -88,23 +94,21 @@ public class LifeStatus implements Serializable {
 	}
 	
 	// Database operations
-	// Notice that, for this example, we create and destroy and entityManager on each operation. 
-	// How would you change the DAO to not having to create the entity manager every time? 
-	public static LifeStatus getLifeStatusById(int lifestatusId) {
+	public static Measure getMeasureById(int MeasureId) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
-		LifeStatus p = em.find(LifeStatus.class, lifestatusId);
+		Measure p = em.find(Measure.class, MeasureId);
 		LifeCoachDao.instance.closeConnections(em);
 		return p;
 	}
 	
-	public static List<LifeStatus> getAll() {
+	public static List<Measure> getAll() {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
-	    List<LifeStatus> list = em.createNamedQuery("LifeStatus.findAll", LifeStatus.class).getResultList();
+	    List<Measure> list = em.createNamedQuery("Measure.findAll", Measure.class).getResultList();
 	    LifeCoachDao.instance.closeConnections(em);
 	    return list;
 	}
 	
-	public static LifeStatus saveLifeStatus(LifeStatus p) {
+	public static Measure saveMeasure(Measure p) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -114,7 +118,7 @@ public class LifeStatus implements Serializable {
 	    return p;
 	}
 	
-	public static LifeStatus updateLifeStatus(LifeStatus p) {
+	public static Measure updateMeasure(Measure p) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -124,7 +128,7 @@ public class LifeStatus implements Serializable {
 	    return p;
 	}
 	
-	public static void removeLifeStatus(LifeStatus p) {
+	public static void removeMeasure(Measure p) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
 		EntityTransaction tx = em.getTransaction();
 		tx.begin();
@@ -132,5 +136,19 @@ public class LifeStatus implements Serializable {
 	    em.remove(p);
 	    tx.commit();
 	    LifeCoachDao.instance.closeConnections(em);
+	}
+
+	/**
+	 * @return the timestamp
+	 */
+	public Date getTimestamp() {
+		return timestamp;
+	}
+
+	/**
+	 * @param timestamp the timestamp to set
+	 */
+	public void setTimestamp(Date timestamp) {
+		this.timestamp = timestamp;
 	}
 }

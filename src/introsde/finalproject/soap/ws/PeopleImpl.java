@@ -1,6 +1,6 @@
 package introsde.finalproject.soap.ws;
 
-import introsde.finalproject.soap.model.LifeStatus;
+import introsde.finalproject.soap.model.Measure;
 import introsde.finalproject.soap.model.Person;
 
 import java.util.List;
@@ -54,10 +54,10 @@ public class PeopleImpl implements People {
     }
 
     @Override
-    public int updatePersonHP(int id, LifeStatus hp) {
-        LifeStatus ls = LifeStatus.getLifeStatusById(hp.getIdMeasure());
+    public int updatePersonHP(int id, Measure hp) {
+        Measure ls = Measure.getMeasureById(hp.getIdMeasure());
         if (ls.getPerson().getIdPerson() == id) {
-            LifeStatus.updateLifeStatus(hp);
+            Measure.updateMeasure(hp);
             return hp.getIdMeasure();
         } else {
             return -1;
