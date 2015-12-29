@@ -10,11 +10,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlTransient;
 
 import introsde.finalproject.soap.dao.LifeCoachDao;
 
@@ -38,25 +41,29 @@ public class Reminder implements Serializable {
         pkColumnName="name", valueColumnName="seq",
         pkColumnValue="Reminder",
         initialValue=1, allocationSize=1)
-    @Column(name="idReminder")
+    @Column(name="idReminder", nullable=false)
     private int idReminder;
 
-    @Column(name="text")
+    @Column(name="text", nullable=false)
     private String text;
     
     @Temporal(TemporalType.DATE)
-    @Column(name="createReminder")
+    @Column(name="createReminder", nullable=false)
     private Date createReminder;
     
     @Temporal(TemporalType.DATE)
     @Column(name="expireReminder")
     private Date expireReminder;
     
-    @Column(name="autocreate")
+    @Column(name="autocreate", nullable=false)
     private Boolean autocreate;
     
-    @Column(name="relevanceLevel")
+    @Column(name="relevanceLevel", nullable=false)
     private Boolean relevanceLevel;
+    
+    @ManyToOne
+	@JoinColumn(name="idPerson",referencedColumnName="idPerson", nullable=false)
+	private Person person;
 
 	/**
 	 * @return the idReminder
@@ -142,6 +149,16 @@ public class Reminder implements Serializable {
 		this.relevanceLevel = relevanceLevel;
 	}
     
+	// we make this transient for JAXB to avoid and infinite loop on serialization
+	@XmlTransient
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+		
 	// Database operations
     public static Reminder getReminderById(int idReminder) {
         EntityManager em = LifeCoachDao.instance.createEntityManager();

@@ -23,10 +23,10 @@ public class MeasureDefinition implements Serializable {
 	@TableGenerator(name="sqlite_measuredef", table="sequence",
 	    pkColumnName="name", valueColumnName="seq",
 	    pkColumnValue="MeasureDefinition")
-	@Column(name="idMeasureDef")
+	@Column(name="idMeasureDef", nullable=false)
 	private int idMeasureDef;
 
-	@Column(name="measureName")
+	@Column(name="measureName", nullable=false)
 	private String measureName;
 
 	@Column(name="measureType")

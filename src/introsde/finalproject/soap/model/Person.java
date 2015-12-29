@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import java.util.Date;
@@ -33,7 +34,7 @@ import java.util.Locale;
 //	@NamedQuery(name="Person.readHistory", query="SELECT h FROM HealthMeasureHistory h "
 //												+ "WHERE h.person = ?1 AND h.measureType LIKE ?2")
 })
-@XmlType(propOrder={"firstname", "lastname" , "birthdate", "email", "fiscalcode", "gender", "Measure"})
+@XmlType(propOrder={"firstname", "lastname" , "birthdate", "email", "fiscalcode", "gender", "measure", "target"})
 public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -47,17 +48,17 @@ public class Person implements Serializable {
         pkColumnName="name", valueColumnName="seq",
         pkColumnValue="Person",
         initialValue=1, allocationSize=1)
-    @Column(name="idPerson")
+    @Column(name="idPerson", nullable=false)
     private int idPerson;
     
-    @Column(name="firstname")
+    @Column(name="firstname", nullable=false)
     private String firstname;
     
-    @Column(name="lastname")
+    @Column(name="lastname", nullable=false)
     private String lastname;
     
     @Temporal(TemporalType.DATE)
-    @Column(name="birthdate")
+    @Column(name="birthdate", nullable=false)
     private Date birthdate;
     
     @Column(name="email")
@@ -66,12 +67,20 @@ public class Person implements Serializable {
     @Column(name="fiscalcode")
     private String fiscalcode;
     
-    @Column(name="gender")
+    @Column(name="gender", nullable=false)
     private String gender;
     
     // mappedBy must be equal to the name of the attribute in Measure that maps this relation
     @OneToMany(mappedBy="person",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-    private List<Measure> Measure;
+    private List<Measure> measure;
+    
+ // mappedBy must be equal to the name of the attribute in Measure that maps this relation
+    @OneToMany(mappedBy="person",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
+    private List<Target> target;
+    
+    @ManyToOne
+	@JoinColumn(name = "idDoctor", referencedColumnName = "idDoctor")
+	private Doctor doctor;
     
     public Person() {
     }
@@ -145,16 +154,31 @@ public class Person implements Serializable {
     // will be inserted
     @XmlElementWrapper(name = "Measurements")
     public List<Measure> getMeasure() {
-        return Measure;
+        return this.measure;
     }
 
     public void setMeasure(List<Measure> param) {
-        this.Measure = param;
+        this.measure = param;
     }
     
-    // Database operations
-    // Notice that, for this example, we create and destroy and entityManager on each operation. 
-    // How would you change the DAO to not having to create the entity manager every time? 
+    public List<Target> getTarget() {
+        return this.target;
+    }
+
+    public void setTarget(List<Target> param) {
+        this.target = param;
+    }
+ // we make this transient for JAXB to avoid and infinite loop on serialization
+ 	@XmlTransient
+ 	public Doctor getDoctor() {
+ 		return this.doctor;
+ 	}
+
+ 	public void setDoctor(Doctor doctor) {
+ 		this.doctor = doctor;
+ 	}
+ 		
+    // Database operations 
     public static Person getPersonById(int idPerson) {
         EntityManager em = LifeCoachDao.instance.createEntityManager();
         Person p = em.find(Person.class, idPerson);

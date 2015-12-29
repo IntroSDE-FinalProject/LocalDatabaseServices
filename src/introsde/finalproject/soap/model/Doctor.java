@@ -10,8 +10,10 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlTransient;
 
 import introsde.finalproject.soap.dao.LifeCoachDao;
 
@@ -26,30 +28,29 @@ public class Doctor implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    // For sqlite in particular, you need to use the following @GeneratedValue annotation
-    // This holds also for the other tables
-    // SQLITE implements auto increment ids through named sequences that are stored in a 
-    // special table named "sqlite_sequence"
     @GeneratedValue(generator="sqlite_doctor")
     @TableGenerator(name="sqlite_doctor", table="sequence",
         pkColumnName="name", valueColumnName="seq",
         pkColumnValue="Doctor",
         initialValue=1, allocationSize=1)
-    @Column(name="idDoctor")
+    @Column(name="idDoctor", nullable=false)
     private int idDoctor;
     
-    @Column(name="firstname")
+    @Column(name="firstname", nullable=false)
     private String firstname;
     
-    @Column(name="lastname")
+    @Column(name="lastname", nullable=false)
     private String lastname;
     
-    @Column(name="specialization")
+    @Column(name="specialization", nullable=false)
     private String specialization;
     
-    @Column(name="city")
+    @Column(name="city", nullable=false)
     private String city;
-
+    
+    @OneToMany(mappedBy="doctor")
+    private List<Person> patients;
+    
 	/**
 	 * @return the idDoctor
 	 */
@@ -118,6 +119,15 @@ public class Doctor implements Serializable {
 	 */
 	public void setCity(String city) {
 		this.city = city;
+	}
+	
+	@XmlTransient
+	public List<Person> getPatients() {
+	    return this.patients;
+	}
+
+	public void setPatients(List<Person> param) {
+	    this.patients = param;
 	}
 	
 	// database operations

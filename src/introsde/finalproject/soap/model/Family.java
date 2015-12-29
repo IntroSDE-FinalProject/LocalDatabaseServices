@@ -9,9 +9,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlTransient;
 
 import introsde.finalproject.soap.dao.LifeCoachDao;
 
@@ -26,27 +29,27 @@ public class Family implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
-    // For sqlite in particular, you need to use the following @GeneratedValue annotation
-    // This holds also for the other tables
-    // SQLITE implements auto increment ids through named sequences that are stored in a 
-    // special table named "sqlite_sequence"
     @GeneratedValue(generator="sqlite_family")
     @TableGenerator(name="sqlite_family", table="sequence",
         pkColumnName="name", valueColumnName="seq",
         pkColumnValue="Family",
         initialValue=1, allocationSize=1)
-    @Column(name="idFamily")
+    @Column(name="idFamily", nullable=false)
     private int idFamily;
     
-    @Column(name="firstname")
+    @Column(name="firstname", nullable=false)
     private String firstname;
     
-    @Column(name="lastname")
+    @Column(name="lastname", nullable=false)
     private String lastname;
     
-    @Column(name="role")
+    @Column(name="role", nullable=false)
     private String role;
-
+    
+    @OneToOne
+	@JoinColumn(name="idPerson",referencedColumnName="idPerson", nullable=false)
+	private Person person;
+    
 	/**
 	 * @return the idFamily
 	 */
@@ -101,6 +104,15 @@ public class Family implements Serializable {
 	 */
 	public void setRole(String role) {
 		this.role = role;
+	}
+	
+	@XmlTransient
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 	
 	// Database operations

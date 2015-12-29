@@ -10,12 +10,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlTransient;
 
 import introsde.finalproject.soap.dao.LifeCoachDao;
 
@@ -34,10 +37,10 @@ public class Target implements Serializable {
 	@TableGenerator(name="sqlite_target", table="sequence",
 	    pkColumnName="name", valueColumnName="seq",
 	    pkColumnValue="Target")
-	@Column(name="idTarget")
+	@Column(name="idTarget", nullable=false)
 	private int idTarget;
 	
-	@Column(name="value")
+	@Column(name="value", nullable=false)
 	private int value;
 	
 	@Temporal(TemporalType.DATE)
@@ -48,11 +51,19 @@ public class Target implements Serializable {
 	@Column(name="endDateTarget")
 	private Date endDateTarget;
 	
-	@Column(name="conditionTarget")
+	@Column(name="conditionTarget", nullable=false)
 	private int conditionTarget;
 	
 	@Column(name="achieved")
 	private int achieved;
+	
+	@ManyToOne
+	@JoinColumn(name="idPerson",referencedColumnName="idPerson", nullable=false)
+	private Person person;
+	
+	@ManyToOne
+	@JoinColumn(name = "idMeasureDef", referencedColumnName = "idMeasureDef")
+	private MeasureDefinition measureDefinition;
 	
 	public Target() {
     }
@@ -136,6 +147,24 @@ public class Target implements Serializable {
 		this.achieved = achieved;
 	}
 	
+	public MeasureDefinition getMeasureDefinition() {
+		return measureDefinition;
+	}
+
+	public void setMeasureDefinition(MeasureDefinition param) {
+		this.measureDefinition = param;
+	}
+	
+	// we make this transient for JAXB to avoid and infinite loop on serialization
+	@XmlTransient
+	public Person getPerson() {
+		return person;
+	}
+
+	public void setPerson(Person person) {
+		this.person = person;
+	}
+		
 	// database operations
 		public static Target getTargetById(int personId) {
 			EntityManager em = LifeCoachDao.instance.createEntityManager();

@@ -35,25 +35,25 @@ public class Measure implements Serializable {
 
 	@Id
 	@GeneratedValue(generator="sqlite_measure")
-	@TableGenerator(name="sqlite_measure", table="sqlite_sequence",
+	@TableGenerator(name="sqlite_measure", table="sequence",
 	    pkColumnName="name", valueColumnName="seq",
 	    pkColumnValue="Measure")
-	@Column(name = "idMeasure")
+	@Column(name = "idMeasure", nullable=false)
 	private int idMeasure;
 
-	@Column(name = "value")
+	@Column(name = "value", nullable=false)
 	private String value;
 	
 	@Temporal(TemporalType.DATE)
-    @Column(name="timestamp")
+    @Column(name="timestamp", nullable=false)
     private Date timestamp;
 	
 	@OneToOne
-	@JoinColumn(name = "idMeasureDef", referencedColumnName = "idMeasureDef", insertable = true, updatable = true)
+	@JoinColumn(name = "idMeasureDef", referencedColumnName = "idMeasureDef", nullable=false, insertable = true, updatable = true)
 	private MeasureDefinition measureDefinition;
 	
 	@ManyToOne
-	@JoinColumn(name="idPerson",referencedColumnName="idPerson")
+	@JoinColumn(name="idPerson",referencedColumnName="idPerson", nullable=false)
 	private Person person;
 	
 	public Measure() {
