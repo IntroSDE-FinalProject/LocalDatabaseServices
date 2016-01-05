@@ -1,10 +1,12 @@
 package introsde.finalproject.soap.ws;
 
+import introsde.finalproject.soap.model.Doctor;
 import introsde.finalproject.soap.model.Measure;
 import introsde.finalproject.soap.model.Person;
 
 import java.util.List;
 
+import javax.jws.WebParam;
 import javax.jws.WebService;
 
 //Service Implementation
@@ -13,6 +15,8 @@ import javax.jws.WebService;
     serviceName="PeopleService")
 public class PeopleImpl implements People {
 
+	//Person
+	
     @Override
     public Person readPerson(int id) {
         System.out.println("---> Reading Person by id = "+id);
@@ -63,5 +67,24 @@ public class PeopleImpl implements People {
             return -1;
         }
     }
-
+    
+    //Doctor
+    
+    @Override
+    public int addDoctor(Doctor doctor){
+    	Doctor d = Doctor.saveDoctor(doctor);
+        return d.getIdDoctor();
+    }
+    
+    @Override
+    public Doctor readDoctor(int id) {
+        System.out.println("---> Reading Doctor by id = "+id);
+        Doctor p = Doctor.getDoctorById(id);
+        if (p!=null) {
+            System.out.println("---> Found Doctor by id = "+id+" => "+p.getFirstname());
+        } else {
+            System.out.println("---> Didn't find any Doctor with  id = "+id);
+        }
+        return p;
+    }
 }

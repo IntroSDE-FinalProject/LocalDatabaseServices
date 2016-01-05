@@ -1,4 +1,5 @@
 package introsde.finalproject.soap.ws;
+import introsde.finalproject.soap.model.Doctor;
 import introsde.finalproject.soap.model.Measure;
 import introsde.finalproject.soap.model.Person;
 
@@ -15,6 +16,8 @@ import javax.jws.soap.SOAPBinding.Use;
 @WebService
 @SOAPBinding(style = Style.DOCUMENT, use=Use.LITERAL) //optional
 public interface People {
+	
+	//User
     @WebMethod(operationName="readPerson")
     @WebResult(name="person") 
     public Person readPerson(@WebParam(name="personId") int id);
@@ -38,4 +41,13 @@ public interface People {
     @WebMethod(operationName="updatePersonHealthProfile")
     @WebResult(name="hpId") 
     public int updatePersonHP(@WebParam(name="personId") int id, @WebParam(name="healthProfile") Measure hp);
+    
+    //Doctor
+    @WebMethod(operationName="createDoctor")
+    @WebResult(name="doctorId") 
+    public int addDoctor(@WebParam(name="doctorId") Doctor doctor);
+    
+    @WebMethod(operationName="readDoctor")
+    @WebResult(name="doctor") 
+    public Doctor readDoctor(@WebParam(name="doctorId") int id);
 }
