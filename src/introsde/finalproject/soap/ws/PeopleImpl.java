@@ -1,12 +1,13 @@
 package introsde.finalproject.soap.ws;
 
 import introsde.finalproject.soap.model.Doctor;
-import introsde.finalproject.soap.model.Measure;
+import introsde.finalproject.soap.model.Family;
 import introsde.finalproject.soap.model.Person;
+import introsde.finalproject.soap.model.Reminder;
+import introsde.finalproject.soap.model.Target;
 
 import java.util.List;
 
-import javax.jws.WebParam;
 import javax.jws.WebService;
 
 //Service Implementation
@@ -15,7 +16,7 @@ import javax.jws.WebService;
     serviceName="PeopleService")
 public class PeopleImpl implements People {
 
-	//Person
+	//***Person***
 	
     @Override
     public Person readPerson(int id) {
@@ -56,7 +57,7 @@ public class PeopleImpl implements People {
             return -1;
         }
     }
-
+    /*
     @Override
     public int updatePersonHP(int id, Measure hp) {
         Measure ls = Measure.getMeasureById(hp.getIdMeasure());
@@ -66,9 +67,9 @@ public class PeopleImpl implements People {
         } else {
             return -1;
         }
-    }
+    }*/
     
-    //Doctor
+    //***Doctor***
     
     @Override
     public int addDoctor(Doctor doctor){
@@ -87,4 +88,47 @@ public class PeopleImpl implements People {
         }
         return p;
     }
+    
+    @Override
+    public int deleteDoctor(int id) {
+        Doctor d = Doctor.getDoctorById(id);
+        if (d!=null) {
+            Doctor.removeDoctor(d);
+            return 0;
+        } else {
+            return -1;
+        }
+    }
+    
+    @Override
+    public int updateDoctor(Doctor doctor) {
+    	Doctor.updateDoctor(doctor);
+        return doctor.getIdDoctor();
+    }
+    
+    //***Family***
+    
+    public Family readFamily(int id){
+    	System.out.println("---> Reading Family by id = "+id);
+    	Family f = Family.getFamilyById(id);
+        if (f!=null) {
+            System.out.println("---> Found Family by id = "+id+" => "+f.getFirstname());
+        } else {
+            System.out.println("---> Didn't find any Family with  id = "+id);
+        }
+        return f;
+    }
+    
+    //***Reminder***
+    
+    public int addReminder(Reminder reminder){
+    	Reminder r = Reminder.saveReminder(reminder);
+        return r.getIdReminder();
+    }
+
+	@Override
+	public Target getTargetByMeasure(int id, String measureName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

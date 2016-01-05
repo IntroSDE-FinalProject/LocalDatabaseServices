@@ -52,14 +52,14 @@ public class Reminder implements Serializable {
     private Date createReminder;
     
     @Temporal(TemporalType.DATE)
-    @Column(name="expireReminder")
+    @Column(name="expireReminder", nullable=false)
     private Date expireReminder;
     
     @Column(name="autocreate", nullable=false)
     private Boolean autocreate;
     
     @Column(name="relevanceLevel", nullable=false)
-    private Boolean relevanceLevel;
+    private int relevanceLevel;
     
     @ManyToOne
 	@JoinColumn(name="idPerson",referencedColumnName="idPerson", nullable=false)
@@ -138,14 +138,14 @@ public class Reminder implements Serializable {
 	/**
 	 * @return the relevanceLevel
 	 */
-	public Boolean getRelevanceLevel() {
+	public int getRelevanceLevel() {
 		return relevanceLevel;
 	}
 
 	/**
 	 * @param relevanceLevel the relevanceLevel to set
 	 */
-	public void setRelevanceLevel(Boolean relevanceLevel) {
+	public void setRelevanceLevel(int relevanceLevel) {
 		this.relevanceLevel = relevanceLevel;
 	}
     
