@@ -48,14 +48,14 @@ public class Target implements Serializable {
 	private Date startDateTarget;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name="endDateTarget")
+	@Column(name="endDateTarget", nullable=false)
 	private Date endDateTarget;
 	
 	@Column(name="conditionTarget", nullable=false)
 	private int conditionTarget;
 	
 	@Column(name="achieved")
-	private int achieved;
+	private Boolean achieved;
 	
 	@ManyToOne
 	@JoinColumn(name="idPerson",referencedColumnName="idPerson", nullable=false)
@@ -136,14 +136,14 @@ public class Target implements Serializable {
 	/**
 	 * @return the achieved
 	 */
-	public int getAchieved() {
+	public Boolean getAchieved() {
 		return achieved;
 	}
 
 	/**
 	 * @param achieved the achieved to set
 	 */
-	public void setAchieved(int achieved) {
+	public void setAchieved(Boolean achieved) {
 		this.achieved = achieved;
 	}
 	

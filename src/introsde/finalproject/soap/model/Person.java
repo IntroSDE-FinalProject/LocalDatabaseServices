@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElementWrapper;
-import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import java.util.Date;
@@ -34,7 +33,7 @@ import java.util.Locale;
 //	@NamedQuery(name="Person.readHistory", query="SELECT h FROM HealthMeasureHistory h "
 //												+ "WHERE h.person = ?1 AND h.measureType LIKE ?2")
 })
-@XmlType(propOrder={"firstname", "lastname" , "birthdate", "email", "fiscalcode", "gender", "measure", "target"})
+@XmlType(propOrder={"firstname", "lastname" , "birthdate", "email", "fiscalcode", "gender", "measure", "target", "doctor"})
 public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -168,8 +167,7 @@ public class Person implements Serializable {
     public void setTarget(List<Target> param) {
         this.target = param;
     }
- // we make this transient for JAXB to avoid and infinite loop on serialization
- 	@XmlTransient
+    
  	public Doctor getDoctor() {
  		return this.doctor;
  	}
