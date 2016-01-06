@@ -33,7 +33,7 @@ import java.util.Locale;
 //	@NamedQuery(name="Person.readHistory", query="SELECT h FROM HealthMeasureHistory h "
 //												+ "WHERE h.person = ?1 AND h.measureType LIKE ?2")
 })
-@XmlType(propOrder={"firstname", "lastname" , "birthdate", "email", "fiscalcode", "gender", "measure", "target", "doctor"})
+@XmlType(propOrder={"idPerson, firstname", "lastname" , "birthdate", "email", "fiscalcode", "gender", "measure", "target", "doctor"})
 public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
 
