@@ -88,7 +88,6 @@ public class Person implements Serializable {
         return this.idPerson;
     }
     
-    @XmlAttribute(name="idUser")
     public int getIdPerson() {
         return idPerson;
     }

@@ -1,8 +1,12 @@
 package introsde.finalproject.soap.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -94,29 +98,37 @@ public class Target implements Serializable {
 	/**
 	 * @return the startDateTarget
 	 */
-	public Date getStartDateTarget() {
-		return startDateTarget;
+	public String getStartDateTarget() {
+		 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	     return df.format(this.startDateTarget);
 	}
 
 	/**
 	 * @param startDateTarget the startDateTarget to set
+	 * @throws ParseException 
 	 */
-	public void setStartDateTarget(Date startDateTarget) {
-		this.startDateTarget = startDateTarget;
+	public void setStartDateTarget(String startDateTarget) throws ParseException {
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		Date date = format.parse(startDateTarget);
+		this.startDateTarget = date;
 	}
 
 	/**
 	 * @return the endDateTarget
 	 */
-	public Date getEndDateTarget() {
-		return endDateTarget;
+	public String getEndDateTarget() {
+		 DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+	     return df.format(this.endDateTarget);
 	}
 
 	/**
 	 * @param endDateTarget the endDateTarget to set
+	 * @throws ParseException 
 	 */
-	public void setEndDateTarget(Date endDateTarget) {
-		this.endDateTarget = endDateTarget;
+	public void setEndDateTarget(String endDateTarget) throws ParseException {
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+		Date date = format.parse(endDateTarget);
+		this.endDateTarget = date;
 	}
 
 	/**
