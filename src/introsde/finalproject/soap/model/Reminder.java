@@ -1,8 +1,12 @@
 package introsde.finalproject.soap.model;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -96,29 +100,37 @@ public class Reminder implements Serializable {
 	/**
 	 * @return the createReminder
 	 */
-	public Date getCreateReminder() {
-		return createReminder;
+	public String getCreateReminder() {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(this.createReminder);
 	}
 
 	/**
 	 * @param createReminder the createReminder to set
+	 * @throws ParseException 
 	 */
-	public void setCreateReminder(Date createReminder) {
-		this.createReminder = createReminder;
+	public void setCreateReminder(String createReminder) throws ParseException {
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        Date date = format.parse(createReminder);
+        this.createReminder = date;
 	}
 
 	/**
 	 * @return the expireReminder
 	 */
-	public Date getExpireReminder() {
-		return expireReminder;
+	public String getExpireReminder() {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(this.expireReminder);
 	}
 
 	/**
 	 * @param expireReminder the expireReminder to set
+	 * @throws ParseException 
 	 */
-	public void setExpireReminder(Date expireReminder) {
-		this.expireReminder = expireReminder;
+	public void setExpireReminder(String expireReminder) throws ParseException {
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        Date date = format.parse(expireReminder);
+		this.expireReminder = date;
 	}
 
 	/**

@@ -4,8 +4,12 @@ import introsde.finalproject.soap.dao.LifeCoachDao;
 import introsde.finalproject.soap.model.MeasureDefinition;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -74,7 +78,25 @@ public class Measure implements Serializable {
 	public void setValue(String value) {
 		this.value = value;
 	}
+	
+	/**
+	 * @return the timestamp
+	 */
+	public String getTimestamp() {
+		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        return df.format(this.timestamp);
+	}
 
+	/**
+	 * @param timestamp the timestamp to set
+	 * @throws ParseException 
+	 */
+	public void setTimestamp(String timestamp) throws ParseException {
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        Date date = format.parse(timestamp);
+        this.timestamp = date;
+	}
+	
 	public MeasureDefinition getMeasureDefinition() {
 		return measureDefinition;
 	}
@@ -138,17 +160,4 @@ public class Measure implements Serializable {
 	    LifeCoachDao.instance.closeConnections(em);
 	}
 
-	/**
-	 * @return the timestamp
-	 */
-	public Date getTimestamp() {
-		return timestamp;
-	}
-
-	/**
-	 * @param timestamp the timestamp to set
-	 */
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
-	}
 }
