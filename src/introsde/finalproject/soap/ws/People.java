@@ -113,12 +113,12 @@ public interface People {
     
     @WebMethod(operationName="getMeasureDefinition")
     @WebResult(name="measureDefinition") 
-    public int getMeasureDefinition(@WebParam(name="idMeasureDef") int id);
+    public List<MeasureDefinition> getMeasureDefinition();
     
     
     @WebMethod(operationName="getMeasure")
     @WebResult(name="measure") 
-    public List<String> getMeasure(@WebParam(name="personId") int id);
+    public List<Measure> getMeasure(@WebParam(name="personId") int id);
     
     
     @WebMethod(operationName="setMeasure")

@@ -3,6 +3,7 @@ package introsde.finalproject.soap.ws;
 import introsde.finalproject.soap.model.Doctor;
 import introsde.finalproject.soap.model.Family;
 import introsde.finalproject.soap.model.Measure;
+import introsde.finalproject.soap.model.MeasureDefinition;
 import introsde.finalproject.soap.model.Person;
 import introsde.finalproject.soap.model.Reminder;
 import introsde.finalproject.soap.model.Target;
@@ -179,15 +180,27 @@ public class PeopleImpl implements People {
 	}
 
 	@Override
-	public int getMeasureDefinition(int id) {
-		// TODO Auto-generated method stub
-		return 0;
+	public List<MeasureDefinition> getMeasureDefinition() {
+		return MeasureDefinition.getAll();
 	}
-
+	
+	
+	
+	
 	@Override
-	public List<String> getMeasure(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Measure> getMeasure(int id) {
+		Person p = Person.getPersonById(id);
+        List<Measure> measureList = null;
+        if (p!=null) {
+            System.out.println("---> Found Person by id = "+id+" => "+p.getIdPerson());
+            measureList = Measure.getMeasureByPersonId(p);
+            return measureList;
+        } else {
+            System.out.println("---> Didn't find any Person with  id = "+id);
+        }
+    	//return history;
+        //return Integer.parseInt(measureList.get(0).getValue());
+		return measureList;
 	}
 
 	@Override

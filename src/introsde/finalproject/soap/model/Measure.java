@@ -19,6 +19,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -33,7 +34,11 @@ import javax.persistence.OneToOne;
  */
 @Entity
 @Table(name = "Measure")
-@NamedQuery(name = "Measure.findAll", query = "SELECT l FROM Measure l")
+//@NamedQuery(name = "Measure.findAll", query = "SELECT l FROM Measure l")
+@NamedQueries({
+	@NamedQuery(name = "Measure.findAll", query = "SELECT m FROM Measure m"),
+	@NamedQuery(name="Measure.findByPersonId", query="SELECT m FROM Measure m WHERE m.person = ?1 ")
+})
 public class Measure implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -159,5 +164,18 @@ public class Measure implements Serializable {
 	    tx.commit();
 	    LifeCoachDao.instance.closeConnections(em);
 	}
+	
+	
+	public static List<Measure> getMeasureByPersonId(Person p) {
+        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        List<Measure> list = em.createNamedQuery("Measure.findByPersonId", Measure.class)
+        		.setParameter(1, p)
+        		.getResultList();
+        LifeCoachDao.instance.closeConnections(em);
+        return list;
+    }
+	
+	
+	
 
 }
