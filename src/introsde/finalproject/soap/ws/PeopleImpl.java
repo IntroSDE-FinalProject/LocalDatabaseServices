@@ -278,12 +278,6 @@ public class PeopleImpl implements People {
 		return targetList;
 		
 	}
-    
-    
-    
-	
-	
-	
 	
 	//**END TARGET***
 	
@@ -308,9 +302,23 @@ public class PeopleImpl implements People {
 	 * @return
 	 */
 	@Override
-	public List<Measure> getVitalSigns(int id) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Measure> getVitalSigns(int idPerson) {
+		Person p = Person.getPersonById(idPerson);
+		List<Measure> vitalSignList = null;
+		int min = 4;
+		int max = 5;
+		MeasureDefinition m1 = MeasureDefinition.getMeasureDefinitionById(min);
+		MeasureDefinition m2 = MeasureDefinition.getMeasureDefinitionById(max);
+		if (p!=null) {
+            System.out.println("---> Found Person by id = "+idPerson+" => "+p.getIdPerson());
+            vitalSignList = Measure.getVitalSigns(p,m1,m2);
+            return vitalSignList;
+        } else {
+            System.out.println("---> Didn't find any Person with  id = "+idPerson);
+        }
+    	//return history;
+        //return Integer.parseInt(measureList.get(0).getValue());
+		return vitalSignList;
 	}
 
 

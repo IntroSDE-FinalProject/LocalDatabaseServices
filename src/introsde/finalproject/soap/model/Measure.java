@@ -37,7 +37,8 @@ import javax.persistence.OneToOne;
 //@NamedQuery(name = "Measure.findAll", query = "SELECT l FROM Measure l")
 @NamedQueries({
 	@NamedQuery(name = "Measure.findAll", query = "SELECT m FROM Measure m"),
-	@NamedQuery(name="Measure.findByPersonId", query="SELECT m FROM Measure m WHERE m.person = ?1 ")
+	@NamedQuery(name="Measure.findByPersonId", query="SELECT m FROM Measure m WHERE m.person = ?1 "),
+	@NamedQuery(name="Measure.findVitalSigns", query="SELECT m FROM Measure m WHERE m.person = ?1 AND ((m.measureDefinition = ?2) OR (m.measureDefinition = ?3) ) ")
 })
 public class Measure implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -170,6 +171,17 @@ public class Measure implements Serializable {
         EntityManager em = LifeCoachDao.instance.createEntityManager();
         List<Measure> list = em.createNamedQuery("Measure.findByPersonId", Measure.class)
         		.setParameter(1, p)
+        		.getResultList();
+        LifeCoachDao.instance.closeConnections(em);
+        return list;
+    }
+	
+	public static List<Measure> getVitalSigns(Person p,MeasureDefinition m1, MeasureDefinition m2) {
+        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        List<Measure> list = em.createNamedQuery("Measure.findVitalSigns", Measure.class)
+        		.setParameter(1, p)
+        		.setParameter(2, m1)
+        		.setParameter(3, m2)
         		.getResultList();
         LifeCoachDao.instance.closeConnections(em);
         return list;

@@ -71,11 +71,6 @@ public interface People {
     public List<Target> getTargetByMeasure(@WebParam(name="personId") int id, @WebParam(name="idMeasureDef") int idMeasureDef);
     
     
-    /*
-    @WebMethod(operationName="updatePersonHealthProfile")
-    @WebResult(name="hpId") 
-    public int updatePersonHP(@WebParam(name="personId") int id, @WebParam(name="healthProfile") Measure hp);
-    */
     //***Doctor***
     
     @WebMethod(operationName="createDoctor")
