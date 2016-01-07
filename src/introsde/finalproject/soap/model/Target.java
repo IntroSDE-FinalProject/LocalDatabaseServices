@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -32,7 +33,11 @@ import introsde.finalproject.soap.dao.LifeCoachDao;
  */
 @Entity
 @Table(name="Target")
-@NamedQuery(name="Target.findAll", query="SELECT t FROM Target t")
+//@NamedQuery(name="Target.findAll", query="SELECT t FROM Target t")
+@NamedQueries({
+	@NamedQuery(name="Target.findAll", query="SELECT t FROM Target t"),
+	@NamedQuery(name="Target.findByPersonId", query="SELECT t FROM Target t WHERE t.person = ?1 ")
+})
 public class Target implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -221,4 +226,18 @@ public class Target implements Serializable {
 		    tx.commit();
 		    LifeCoachDao.instance.closeConnections(em);
 		}
+		
+		
+		
+		public static List<Target> getTargetByPersonId(Person p) {
+	        EntityManager em = LifeCoachDao.instance.createEntityManager();
+	        List<Target> list = em.createNamedQuery("Target.findByPersonId", Target.class)
+	        		.setParameter(1, p)
+	        		.getResultList();
+	        LifeCoachDao.instance.closeConnections(em);
+	        return list;
+	    }
+		
+		
+		
 }

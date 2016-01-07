@@ -38,29 +38,37 @@ public interface People {
     public int deletePerson(@WebParam(name="personId") int id);
     
     
+    @WebMethod(operationName="getPersonByDoctor")
+    @WebResult(name="patientList") 
+    public List<Person> getPersonByDoctor(@WebParam(name="idDoctor") int idDoctor);
+    
+    
+    @WebMethod(operationName="getVitalSigns")
+    @WebResult(name="vitalSigns") 
+    public List<Measure> getVitalSigns(@WebParam(name="personId") int id);
+    
     @WebMethod(operationName="createTarget")
     @WebResult(name="targets") 
     public int addTarget(@WebParam(name="target") Target target);
  
 
+    @WebMethod(operationName="updateTarget")
+    @WebResult(name="targetId") 
+    public int updateTarget(@WebParam(name="target") Target target);
+    
+    @WebMethod(operationName="deleteTarget")
+    @WebResult(name="idTarget") 
+    public int deleteTarget(@WebParam(name="idTarget") int idTarget);
+    
+    
     @WebMethod(operationName="getTargetList")
     @WebResult(name="targets") 
-    public List<Target> getTargets(@WebParam(name="personId") int id);
+    public List<Target> getTargetList(@WebParam(name="personId") int id);
     
     
     @WebMethod(operationName="getTarget")
     @WebResult(name="targets") 
     public Target getTargetByMeasure(@WebParam(name="personId") int id, @WebParam(name="measureName") String measureName);
-    
-    
-    @WebMethod(operationName="getPersonByDoctor")
-    @WebResult(name="person") 
-    public List<Person> getPersonByDoctor(@WebParam(name="doctorId") int id);
-    
-    
-    @WebMethod(operationName="getVitalSigns")
-    @WebResult(name="vitalSigns") 
-    public List<Measure> getVitalSigns(@WebParam(name="personId") int id,@WebParam(name="idMeasureDef") int idMeasureDef);
     
     
     /*
@@ -98,6 +106,14 @@ public interface People {
     @WebResult(name="reminder") 
     public int addReminder(@WebParam(name="reminder") Reminder reminder);
     
+    @WebMethod(operationName="updateReminder")
+    @WebResult(name="updateReminder") 
+    public int updateReminder(@WebParam(name="reminder") Reminder reminder);
+    
+    @WebMethod(operationName="deleteReminder")
+    @WebResult(name="deleteReminder") 
+    public int deleteReminder(@WebParam(name="idReminder") int idReminder);
+    
     /**
      * Get the reminders for a specified personId
      * 
@@ -106,7 +122,7 @@ public interface People {
      */
     @WebMethod(operationName="getReminder")
     @WebResult(name="reminder") 
-    public List<Reminder> readReminder(@WebParam(name="personId") int id);
+    public List<Reminder> readReminder(@WebParam(name="personId") int personId);
     
     
     //***Measure***
@@ -118,15 +134,20 @@ public interface People {
     
     @WebMethod(operationName="getMeasure")
     @WebResult(name="measure") 
-    public List<Measure> getMeasure(@WebParam(name="personId") int id);
+    public List<Measure> getMeasure(@WebParam(name="personId") int personId);
     
     
     @WebMethod(operationName="setMeasure")
     @WebResult(name="measure") 
     public int addMeasure(@WebParam(name="measure") Measure measure);
     
+    @WebMethod(operationName="updateMeasure")
+    @WebResult(name="idUpdatedMeasure") 
+    public int updateMeasure(@WebParam(name="measure") Measure measure);
     
-    
+    @WebMethod(operationName="deleteMeasure")
+    @WebResult(name="deletedMeasure") 
+    public int deleteMeasure(@WebParam(name="idMeasure") int idMeasure);
     
     
     
