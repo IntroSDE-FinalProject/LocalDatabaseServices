@@ -56,7 +56,7 @@ public class Target implements Serializable {
 	private Date endDateTarget;
 	
 	@Column(name="conditionTarget", nullable=false)
-	private int conditionTarget;
+	private String conditionTarget;
 	
 	@Column(name="achieved")
 	private Boolean achieved;
@@ -134,14 +134,14 @@ public class Target implements Serializable {
 	/**
 	 * @return the conditionTarget
 	 */
-	public int getConditionTarget() {
+	public String getConditionTarget() {
 		return conditionTarget;
 	}
 
 	/**
 	 * @param conditionTarget the conditionTarget to set
 	 */
-	public void setConditionTarget(int conditionTarget) {
+	public void setConditionTarget(String conditionTarget) {
 		this.conditionTarget = conditionTarget;
 	}
 
