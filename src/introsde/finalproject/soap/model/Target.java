@@ -36,7 +36,8 @@ import introsde.finalproject.soap.dao.LifeCoachDao;
 //@NamedQuery(name="Target.findAll", query="SELECT t FROM Target t")
 @NamedQueries({
 	@NamedQuery(name="Target.findAll", query="SELECT t FROM Target t"),
-	@NamedQuery(name="Target.findByPersonId", query="SELECT t FROM Target t WHERE t.person = ?1 ")
+	@NamedQuery(name="Target.findByPersonId", query="SELECT t FROM Target t WHERE t.person = ?1 "),
+	@NamedQuery(name="Target.findByIdPersonAndIdMeasure", query="SELECT t FROM Target t WHERE t.person = ?1 AND t.measureDefinition = ?2 ")
 })
 public class Target implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -233,6 +234,17 @@ public class Target implements Serializable {
 	        EntityManager em = LifeCoachDao.instance.createEntityManager();
 	        List<Target> list = em.createNamedQuery("Target.findByPersonId", Target.class)
 	        		.setParameter(1, p)
+	        		.getResultList();
+	        LifeCoachDao.instance.closeConnections(em);
+	        return list;
+	    }
+		
+		
+		public static List<Target> getTargetByMeasure(Person p, MeasureDefinition m) {
+	        EntityManager em = LifeCoachDao.instance.createEntityManager();
+	        List<Target> list = em.createNamedQuery("Target.findByIdPersonAndIdMeasure", Target.class)
+	        		.setParameter(1, p)
+	        		.setParameter(2, m)
 	        		.getResultList();
 	        LifeCoachDao.instance.closeConnections(em);
 	        return list;

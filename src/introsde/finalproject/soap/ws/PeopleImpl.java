@@ -60,16 +60,7 @@ public class PeopleImpl implements People {
             return -1;
         }
     }
-    
-    
-    @Override
-	public Target getTargetByMeasure(int id, String measureName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    
-    
-    
+  
     /*
     @Override
     public int updatePersonHP(int id, Measure hp) {
@@ -268,7 +259,33 @@ public class PeopleImpl implements People {
 	}
 	
 	
+  
+    
+    @Override
+	public List<Target> getTargetByMeasure(int idPerson, int idMeasureDef) {
+		Person p = Person.getPersonById(idPerson);
+		MeasureDefinition m = MeasureDefinition.getMeasureDefinitionById(idMeasureDef);
+		List<Target> targetList = null;
+		if( (p != null) && (m != null) ){
+			System.out.println("---> Found Person by id = "+idPerson+" => "+p.getIdPerson());
+			System.out.println("---> Found MeasureDefinition by id = "+idMeasureDef+" => "+m.getIdMeasureDef());
+			targetList = Target.getTargetByMeasure(p, m);
+            return targetList;
+        }else{
+            System.out.println("Is empty or null");
+        }
+		
+		return targetList;
+		
+	}
+    
+    
+    
 	
+	
+	
+	
+	//**END TARGET***
 	
 
 	/**

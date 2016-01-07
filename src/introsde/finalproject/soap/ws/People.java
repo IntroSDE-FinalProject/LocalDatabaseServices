@@ -68,7 +68,7 @@ public interface People {
     
     @WebMethod(operationName="getTarget")
     @WebResult(name="targets") 
-    public Target getTargetByMeasure(@WebParam(name="personId") int id, @WebParam(name="measureName") String measureName);
+    public List<Target> getTargetByMeasure(@WebParam(name="personId") int id, @WebParam(name="idMeasureDef") int idMeasureDef);
     
     
     /*
