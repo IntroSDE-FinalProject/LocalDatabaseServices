@@ -16,6 +16,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
@@ -31,7 +32,11 @@ import introsde.finalproject.soap.dao.LifeCoachDao;
  */
 @Entity
 @Table(name="Reminder")
-@NamedQuery(name="Reminder.findAll", query="SELECT f FROM Reminder f")
+//@NamedQuery(name="Reminder.findAll", query="SELECT f FROM Reminder f")
+@NamedQueries({
+	@NamedQuery(name="Reminder.findAll", query="SELECT f FROM Reminder f"),
+	@NamedQuery(name="Reminder.findByPersonId", query="SELECT r FROM Reminder r WHERE r.person = ?1 ")
+})
 public class Reminder implements Serializable {
     private static final long serialVersionUID = 1L;
     
@@ -178,6 +183,29 @@ public class Reminder implements Serializable {
         LifeCoachDao.instance.closeConnections(em);
         return p;
     }
+    
+ // Database operations 
+    public static List<Reminder> getReminderByPersonId(Person p) {
+        EntityManager em = LifeCoachDao.instance.createEntityManager();
+        List<Reminder> list = em.createNamedQuery("Reminder.findByPersonId", Reminder.class)
+        		.setParameter(1, p)
+        		.getResultList();
+        LifeCoachDao.instance.closeConnections(em);
+        return list;
+    }
+    
+    /*
+    public static List<HealthMeasureHistory> getHistory(Person p, String measureType) {
+		EntityManager em = LifeCoachDao.instance.createEntityManager();
+	    List<HealthMeasureHistory> list = em.createNamedQuery("Person.readHistory", HealthMeasureHistory.class)
+	    		.setParameter(1, p)
+	    		.setParameter(2, measureType)
+	    		.getResultList();
+	    LifeCoachDao.instance.closeConnections(em);
+	    return list;
+	}
+    */
+    
     
     public static List<Reminder> getAll() {
         EntityManager em = LifeCoachDao.instance.createEntityManager();

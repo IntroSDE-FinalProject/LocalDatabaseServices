@@ -37,9 +37,31 @@ public interface People {
     @WebResult(name="personId") 
     public int deletePerson(@WebParam(name="personId") int id);
     
+    
+    @WebMethod(operationName="createTarget")
+    @WebResult(name="targets") 
+    public int addTarget(@WebParam(name="target") Target target);
+ 
+
+    @WebMethod(operationName="getTargetList")
+    @WebResult(name="targets") 
+    public List<Target> getTargets(@WebParam(name="personId") int id);
+    
+    
     @WebMethod(operationName="getTarget")
     @WebResult(name="targets") 
     public Target getTargetByMeasure(@WebParam(name="personId") int id, @WebParam(name="measureName") String measureName);
+    
+    
+    @WebMethod(operationName="getPersonByDoctor")
+    @WebResult(name="person") 
+    public List<Person> getPersonByDoctor(@WebParam(name="doctorId") int id);
+    
+    
+    @WebMethod(operationName="getVitalSigns")
+    @WebResult(name="vitalSigns") 
+    public List<Measure> getVitalSigns(@WebParam(name="personId") int id,@WebParam(name="idMeasureDef") int idMeasureDef);
+    
     
     /*
     @WebMethod(operationName="updatePersonHealthProfile")
@@ -75,4 +97,37 @@ public interface People {
     @WebMethod(operationName="setReminder")
     @WebResult(name="reminder") 
     public int addReminder(@WebParam(name="reminder") Reminder reminder);
+    
+    /**
+     * Get the reminders for a specified personId
+     * 
+     * @param id
+     * @return
+     */
+    @WebMethod(operationName="getReminder")
+    @WebResult(name="reminder") 
+    public List<Reminder> readReminder(@WebParam(name="personId") int id);
+    
+    
+    //***Measure***
+    
+    @WebMethod(operationName="getMeasureDefinition")
+    @WebResult(name="measureDefinition") 
+    public int getMeasureDefinition(@WebParam(name="idMeasureDef") int id);
+    
+    
+    @WebMethod(operationName="getMeasure")
+    @WebResult(name="measure") 
+    public List<String> getMeasure(@WebParam(name="personId") int id);
+    
+    
+    @WebMethod(operationName="setMeasure")
+    @WebResult(name="measure") 
+    public int addMeasure(@WebParam(name="measure") Measure measure);
+    
+    
+    
+    
+    
+    
 }

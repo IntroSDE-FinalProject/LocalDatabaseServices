@@ -2,10 +2,12 @@ package introsde.finalproject.soap.ws;
 
 import introsde.finalproject.soap.model.Doctor;
 import introsde.finalproject.soap.model.Family;
+import introsde.finalproject.soap.model.Measure;
 import introsde.finalproject.soap.model.Person;
 import introsde.finalproject.soap.model.Reminder;
 import introsde.finalproject.soap.model.Target;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.jws.WebService;
@@ -57,6 +59,16 @@ public class PeopleImpl implements People {
             return -1;
         }
     }
+    
+    
+    @Override
+	public Target getTargetByMeasure(int id, String measureName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+    
+    
+    
     /*
     @Override
     public int updatePersonHP(int id, Measure hp) {
@@ -119,7 +131,6 @@ public class PeopleImpl implements People {
         return f;
     }
     
-    //***Reminder***
     
     public int addReminder(Reminder reminder){
     	Reminder r = Reminder.saveReminder(reminder);
@@ -127,8 +138,62 @@ public class PeopleImpl implements People {
     }
 
 	@Override
-	public Target getTargetByMeasure(int id, String measureName) {
+	public int addTarget(Target target) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<Target> getTargets(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public List<Person> getPersonByDoctor(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Measure> getVitalSigns(int id, int idMeasureDef) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Reminder> readReminder(int id) {
+		Person p = Person.getPersonById(id);
+		System.out.println("---> Reading Person by id = "+id);
+        List<Reminder> reminderList = null;
+        reminderList = Reminder.getReminderByPersonId(p); 
+        return reminderList;
+        
+        /*
+        if (p!=null) {
+            System.out.println("---> Found Person by id = "+id+" => "+p.getFirstname());
+        } else {
+            System.out.println("---> Didn't find any Person with  id = "+id);
+        }
+        */
+	}
+
+	@Override
+	public int getMeasureDefinition(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<String> getMeasure(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int addMeasure(Measure measure) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
