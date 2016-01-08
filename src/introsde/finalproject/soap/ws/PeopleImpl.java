@@ -40,8 +40,10 @@ public class PeopleImpl implements People {
 
     @Override
     public int addPerson(Person person) {
-        Person.savePerson(person);
-        return person.getIdPerson();
+    	int id = 0;
+        person = Person.savePerson(person);
+        id = person.getIdPerson();
+        return id;
     }
 
     @Override
