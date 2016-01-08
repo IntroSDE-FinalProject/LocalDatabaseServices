@@ -22,23 +22,6 @@ public class PeopleImpl implements People {
 	//***Person***
 	
     @Override
-    public Person readPerson(int id) {
-        System.out.println("---> Reading Person by id = "+id);
-        Person p = Person.getPersonById(id);
-        if (p!=null) {
-            System.out.println("---> Found Person by id = "+id+" => "+p.getFirstname());
-        } else {
-            System.out.println("---> Didn't find any Person with  id = "+id);
-        }
-        return p;
-    }
-
-    @Override
-    public List<Person> getPeople() {
-        return Person.getAll();
-    }
-
-    @Override
     public int addPerson(Person person) {
     	try{
     		person = Person.savePerson(person);
@@ -49,6 +32,17 @@ public class PeopleImpl implements People {
     	}
     }
     
+    @Override
+    public Person readPerson(int id) {
+        System.out.println("---> Reading Person by id = "+id);
+        Person p = Person.getPersonById(id);
+        if (p!=null) {
+            System.out.println("---> Found Person by id = "+id+" => "+p.getFirstname());
+        } else {
+            System.out.println("---> Didn't find any Person with  id = "+id);
+        }
+        return p;
+    }
     
     @Override
     public int updatePerson(Person person) {
@@ -88,6 +82,11 @@ public class PeopleImpl implements People {
     		System.out.println(e);
     		return -1;
     	}
+    }
+    
+    @Override
+    public List<Person> getPeople() {
+        return Person.getAll();
     }
   
     
