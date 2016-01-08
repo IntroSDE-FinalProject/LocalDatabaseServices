@@ -129,7 +129,7 @@ public interface People {
     
     @WebMethod(operationName="setMeasure")
     @WebResult(name="measure") 
-    public int addMeasure(@WebParam(name="measure") Measure measure);
+    public int addMeasure(@WebParam(name="measure") Measure measure, @WebParam(name="idPerson") int idPerson);
     
     @WebMethod(operationName="updateMeasure")
     @WebResult(name="idUpdatedMeasure") 
