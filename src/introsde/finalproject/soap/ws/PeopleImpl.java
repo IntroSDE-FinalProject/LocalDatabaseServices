@@ -20,7 +20,8 @@ import javax.jws.WebService;
 public class PeopleImpl implements People {
 
 	//***Person***
-	
+    
+	// ---------------- START CRUD - PERSON --------------------
     @Override
     public int addPerson(Person person) {
     	try{
@@ -61,7 +62,7 @@ public class PeopleImpl implements People {
     			return -2;
     		}
     	}catch(Exception e){
-    		System.out.println(e);
+    		System.out.println("Person not updated due the exception: " + e);
     		return -1;
     	}
         
@@ -84,6 +85,8 @@ public class PeopleImpl implements People {
     	}
     }
     
+    // ---------------- END CRUD - Doctor --------------------
+    
     @Override
     public List<Person> getPeople() {
         return Person.getAll();
@@ -92,10 +95,16 @@ public class PeopleImpl implements People {
     
     //***Doctor***
     
+    // ---------------- START CRUD - Doctor --------------------
     @Override
     public int addDoctor(Doctor doctor){
-    	Doctor d = Doctor.saveDoctor(doctor);
-        return d.getIdDoctor();
+    	try{
+    		Doctor d = Doctor.saveDoctor(doctor);
+            return d.getIdDoctor();
+    	}catch(Exception e){
+    		System.out.println("Doctor not saved due the exception: " + e);
+    		return -1;
+    	}
     }
     
     @Override
@@ -110,22 +119,48 @@ public class PeopleImpl implements People {
         return p;
     }
     
-    @Override
-    public int deleteDoctor(int id) {
-        Doctor d = Doctor.getDoctorById(id);
-        if (d!=null) {
-            Doctor.removeDoctor(d);
-            return 0;
-        } else {
-            return -1;
-        }
-    }
     
     @Override
     public int updateDoctor(Doctor doctor) {
-    	Doctor.updateDoctor(doctor);
-        return doctor.getIdDoctor();
+    	try{
+    		int id = doctor.getIdDoctor();
+    		if(id!= 0){
+    			if(Doctor.getDoctorById(id) != null){
+    				Doctor.updateDoctor(doctor);
+    				return doctor.getIdDoctor();
+    			}else{
+    				System.out.println("Does not exist a Doctor with id: " + id);
+    				return -2;
+    			}
+    		}else{
+    			System.out.println("doctorId is equals to " + id );
+    			return -2;
+    		}
+    	}catch(Exception e){
+    		System.out.println("Doctor not updated due the exception: " + e);
+    		return -1;
+    	}
     }
+    
+    
+    @Override
+    public int deleteDoctor(int id) {
+    	try{
+    		Doctor d = Doctor.getDoctorById(id);
+    		if(d!=null){
+    			Doctor.removeDoctor(d);
+    			return 1;
+    		}else{
+    			System.out.println("Does not exist a Doctor with id: " + id);
+                return -2;
+    		}
+    	}catch(Exception e){
+    		System.out.println("Error deleting the Doctor due the exception: " + e);
+    		return -1;
+    	}
+    }
+    // ---------------- END CRUD - DOCTOR --------------------
+    
     
     //***Family***
     
@@ -142,6 +177,7 @@ public class PeopleImpl implements People {
     
     
     //***Reminder***
+    
     
     /**
      * This method is used to add a reminder
