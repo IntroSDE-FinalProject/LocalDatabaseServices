@@ -1,6 +1,7 @@
 package introsde.finalproject.soap.ws;
 import introsde.finalproject.soap.model.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 import javax.jws.WebMethod;
@@ -49,7 +50,7 @@ public interface People {
     
     @WebMethod(operationName="createTarget")
     @WebResult(name="targets") 
-    public int addTarget(@WebParam(name="target") Target target);
+    public int addTarget(@WebParam(name="target") Target target, @WebParam(name="idPerson") int idPerson);
  
 
     @WebMethod(operationName="updateTarget")
@@ -109,12 +110,6 @@ public interface People {
     @WebResult(name="responseReminderCode") 
     public int deleteReminder(@WebParam(name="idReminder") int idReminder);
     
-    /**
-     * Get the reminders for a specified personId
-     * 
-     * @param id
-     * @return
-     */
     @WebMethod(operationName="getReminder")
     @WebResult(name="reminder") 
     public List<Reminder> readReminder(@WebParam(name="personId") int personId);
@@ -138,7 +133,7 @@ public interface People {
     
     @WebMethod(operationName="updateMeasure")
     @WebResult(name="idUpdatedMeasure") 
-    public int updateMeasure(@WebParam(name="measure") Measure measure);
+    public int updateMeasure(@WebParam(name="measure") Measure measure) throws ParseException;
     
     @WebMethod(operationName="deleteMeasure")
     @WebResult(name="responseMeasureCode") 

@@ -8,6 +8,7 @@ import introsde.finalproject.soap.model.Person;
 import introsde.finalproject.soap.model.Reminder;
 import introsde.finalproject.soap.model.Target;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +72,35 @@ public class PeopleImpl implements People {
     		int id = person.getIdPerson();
     		if(id!= 0){
     			if(Person.getPersonById(id) != null){
+    				Person x = Person.getPersonById(id);
+    				person.setDoctor(x.getDoctor());
+    				person.setMeasure(x.getMeasure());
+    				person.setTarget(x.getTarget());
+    				
+    				if(person.getFirstname() == null){
+    					person.setFirstname(x.getFirstname());
+    				}
+    				
+    				if(person.getLastname() == null){
+    					person.setLastname(x.getLastname());
+    				}
+    				
+    				if(person.getBirthdate() == null){
+    					person.setBirthdate(x.getBirthdate());
+    				}
+    				
+    				if(person.getEmail() == null){
+    					person.setEmail(x.getEmail());
+    				}
+    				
+    				if(person.getFiscalcode() == null){
+    					person.setFiscalcode(x.getFiscalcode());
+    				}
+    				
+    				if(person.getGender() == null){
+    					person.setGender(x.getGender());
+    				}
+    				
     				Person.updatePerson(person);
     				return person.getIdPerson();
     			}else{
@@ -177,6 +207,23 @@ public class PeopleImpl implements People {
     		int id = doctor.getIdDoctor();
     		if(id!= 0){
     			if(Doctor.getDoctorById(id) != null){
+    				Doctor x = Doctor.getDoctorById(id);
+    				if(doctor.getCity() == null){
+    					doctor.setCity(x.getCity());
+    				}
+    				
+    				if(doctor.getFirstname() == null){
+    					doctor.setFirstname(x.getFirstname());
+    				}
+    				
+    				if(doctor.getLastname() == null){
+    					doctor.setLastname(x.getLastname());
+    				}
+    				
+    				if(doctor.getSpecialization() == null){
+    					doctor.setSpecialization(x.getSpecialization());
+    				}
+    				
     				Doctor.updateDoctor(doctor);
     				return doctor.getIdDoctor();
     			}else{
@@ -348,8 +395,10 @@ public class PeopleImpl implements People {
 	 * @return
 	 */
 	@Override
-	public int addTarget(Target target) {
+	public int addTarget(Target target, int idPerson) {
 		try{
+			Person p = Person.getPersonById(idPerson);
+			target.setPerson(p);
 			Target.saveTarget(target);
 	        return target.getIdTarget();
 		}catch(Exception e){
@@ -461,14 +510,84 @@ public class PeopleImpl implements People {
 	
 	//**END TARGET***
 	
+    
+ // ---------------- START CRUD - MEASURE --------------------
+	
+    
+    /**
+ 	 * 
+ 	 * @param measure
+ 	 * @return
+ 	 */
+ 	@Override
+ 	public int addMeasure(Measure measure) {
+ 		Measure.saveMeasure(measure);
+         return measure.getIdMeasure();
+ 	}
+    
+    
+    
+ 	/**
+ 	 * 
+ 	 * @param id
+ 	 * @return
+ 	 */
+ 	@Override
+ 	public List<Measure> getMeasure(int id) {
+ 		Person p = Person.getPersonById(id);
+ 		return p.getMeasure();
+ 	}
 
-    //TODO manage method exception and return values
+ 	
+ 	/**
+ 	 * 
+ 	 * @param measure
+ 	 * @return
+ 	 * @throws ParseException 
+ 	 */
+ 	@Override
+ 	public int updateMeasure(Measure measure) throws ParseException{
+ 		int id = measure.getIdMeasure();
+ 		Measure m = Measure.getMeasureById(id);
+ 		
+ 		if (measure.getValue() == null){
+ 			measure.setValue(m.getValue());
+ 			
+ 		}if(measure.getTimestamp() == null ){
+ 			measure.setTimestamp(m.getTimestamp());
+ 		
+ 		}if(measure.getMeasureDefinition() == null ){
+ 			measure.setMeasureDefinition(m.getMeasureDefinition());
+ 		}
+ 		Measure.updateMeasure(measure);
+ 		return measure.getIdMeasure();
+ 	}
+
+ 	/**
+ 	 * 
+ 	 * @param id
+ 	 * @return
+ 	 */
+ 	@Override
+ 	public int deleteMeasure(int id) {
+ 		Measure m = Measure.getMeasureById(id);
+ 		if (m!=null) {
+ 			Measure.removeMeasure(m);
+ 			return 0;
+ 		} else {
+ 			return -1;
+ 		}
+ 	}
+
+ 	// ---------------- START CRUD - MEASURE --------------------
+
+
     
 	/**
 	 * This method is used to retrieve all patients associated to a specified doctor 
 	 * 
-	 * @param id
-	 * @return
+	 * @param id doctorId
+	 * @return List of patients
 	 */
 	@Override
 	public List<Person> getPersonByDoctor(int idDoctor) {
@@ -478,10 +597,11 @@ public class PeopleImpl implements People {
 
 	
 	/**
-	 * This method is used to retrieve vital signs of a person
+	 * This method is used to retrieve vital signs of a person, min and max value
+	 * of blood pressure
 	 * 
 	 * @param idMeasureDef
-	 * @return
+	 * @return List of vitalSignList
 	 */
 	@Override
 	public List<Measure> getVitalSigns(int idPerson) {
@@ -498,85 +618,19 @@ public class PeopleImpl implements People {
         } else {
             System.out.println("---> Didn't find any Person with  id = "+idPerson);
         }
-    	//return history;
-        //return Integer.parseInt(measureList.get(0).getValue());
 		return vitalSignList;
 	}
 
 
 	/**
+	 * This method is used to retrieve all information about
+	 * the provided measure definitions
 	 * 
-	 * @return
+	 * @return List of measure definition
 	 */
 	@Override
 	public List<MeasureDefinition> getMeasureDefinition() {
 		return MeasureDefinition.getAll();
 	}
 	
-	
-	
-	/**
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@Override
-	public List<Measure> getMeasure(int id) {
-		Person p = Person.getPersonById(id);
-		return p.getMeasure();
-		/*
-        List<Measure> measureList = null;
-        if (p!=null) {
-            System.out.println("---> Found Person by id = "+id+" => "+p.getIdPerson());
-            measureList = Measure.getMeasureByPersonId(p);
-            return measureList;
-        } else {
-            System.out.println("---> Didn't find any Person with  id = "+id);
-        }
-    	//return history;
-        //return Integer.parseInt(measureList.get(0).getValue());
-		return measureList;
-		*/
-	}
-
-	/**
-	 * 
-	 * @param measure
-	 * @return
-	 */
-	@Override
-	public int addMeasure(Measure measure) {
-		Measure.saveMeasure(measure);
-        return measure.getIdMeasure();
-	}
-	
-	/**
-	 * 
-	 * @param measure
-	 * @return
-	 */
-	@Override
-	public int updateMeasure(Measure measure) {
-		Measure.updateMeasure(measure);
-		return measure.getIdMeasure();
-	}
-
-	/**
-	 * 
-	 * @param id
-	 * @return
-	 */
-	@Override
-	public int deleteMeasure(int id) {
-		Measure m = Measure.getMeasureById(id);
-		if (m!=null) {
-			Measure.removeMeasure(m);
-			return 0;
-		} else {
-			return -1;
-		}
-	}
-
-	
-
 }
