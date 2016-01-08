@@ -341,6 +341,33 @@ public class PeopleImpl implements People {
     		int id = reminder.getIdReminder();
     		if(id!= 0){
     			if(Reminder.getReminderById(id) != null){
+    				Reminder r = Reminder.getReminderById(id);
+    				
+    				if(reminder.getAutocreate() == null){
+    					reminder.setAutocreate(r.getAutocreate());
+    				}
+    				
+    				if(reminder.getCreateReminder() == null){
+    					reminder.setCreateReminder(r.getCreateReminder());
+    				}
+    				
+    				if(reminder.getExpireReminder() == null){
+    					reminder.setExpireReminder(r.getExpireReminder());
+    				}
+    				
+    				if(reminder.getIdReminder() == 0){
+    					reminder.setIdReminder(r.getIdReminder());
+    				}
+    				
+    				if(reminder.getRelevanceLevel() == 0){
+    					reminder.setRelevanceLevel(r.getRelevanceLevel());
+    				}
+    				
+    				if(reminder.getText() == null){
+    					reminder.setText(r.getText());
+    				}
+    				
+    				
     				Reminder.updateReminder(reminder);
     				return reminder.getIdReminder();
     			}else{
@@ -381,7 +408,6 @@ public class PeopleImpl implements People {
 	}
     
     // ---------------- END CRUD - REMINDER --------------------
-	
 	
 	
 	//***Target***
@@ -442,6 +468,30 @@ public class PeopleImpl implements People {
 			int id = target.getIdTarget();
 			if(id!= 0){
     			if(Target.getTargetById(id) != null){
+    				Target t = Target.getTargetById(id);
+    				target.setMeasureDefinition(t.getMeasureDefinition());
+    				
+    				if(target.getAchieved() == null){
+    					target.setAchieved(t.getAchieved());
+    				}
+    				
+    				if(target.getConditionTarget() == null){
+    					target.setConditionTarget(t.getConditionTarget());
+    				}
+    				
+    				if(target.getEndDateTarget() == null){
+    					target.setEndDateTarget(t.getEndDateTarget());
+    				}
+    				
+    				if(target.getStartDateTarget() == null){
+    					target.setStartDateTarget(t.getStartDateTarget());
+    				}
+    				
+    				if(target.getValue() == 0){
+    					target.setValue(t.getValue());
+    				}
+    				
+    				
     				Target.updateTarget(target);
     				return target.getIdTarget();
     			}else{
@@ -515,22 +565,32 @@ public class PeopleImpl implements People {
 	
     
     /**
+ 	 * This method is used to add a Measure for a specified Person
  	 * 
  	 * @param measure
- 	 * @return
+ 	 * @return idMeasure 
  	 */
  	@Override
- 	public int addMeasure(Measure measure) {
- 		Measure.saveMeasure(measure);
-         return measure.getIdMeasure();
+ 	public int addMeasure(Measure measure, int personId) {
+ 		try{
+ 			Person p = Person.getPersonById(personId);
+ 			measure.setPerson(p);
+ 	 		Measure.saveMeasure(measure);
+ 	 		return measure.getIdMeasure();
+ 		}catch(Exception e){
+ 			System.out.println("Measure not saved due the exception: " + e);
+ 			return -1;
+ 			
+ 		}
+ 		
  	}
     
     
-    
  	/**
+ 	 * This method is used to get the Measure of a specified person
  	 * 
  	 * @param id
- 	 * @return
+ 	 * @return List of measure associated to the specified person
  	 */
  	@Override
  	public List<Measure> getMeasure(int id) {
@@ -540,27 +600,48 @@ public class PeopleImpl implements People {
 
  	
  	/**
+ 	 * This method is used to update the measure 
  	 * 
  	 * @param measure
- 	 * @return
+ 	 * @return measureId of the measure updated
  	 * @throws ParseException 
  	 */
  	@Override
  	public int updateMeasure(Measure measure) throws ParseException{
- 		int id = measure.getIdMeasure();
- 		Measure m = Measure.getMeasureById(id);
- 		
- 		if (measure.getValue() == null){
- 			measure.setValue(m.getValue());
- 			
- 		}if(measure.getTimestamp() == null ){
- 			measure.setTimestamp(m.getTimestamp());
- 		
- 		}if(measure.getMeasureDefinition() == null ){
- 			measure.setMeasureDefinition(m.getMeasureDefinition());
+ 		try{
+ 			int id = measure.getIdMeasure();
+ 			if(id!=0){
+ 				if(Target.getTargetById(id) != null){
+ 					Measure m = Measure.getMeasureById(id);
+ 		 	 		
+ 		 	 		if(measure.getIdMeasure() == 0){
+ 		 	 			measure.setIdMeasure(m.getIdMeasure());
+ 		 	 		}
+ 		 	 		
+ 		 	 		if (measure.getValue() == null){
+ 		 	 			measure.setValue(m.getValue());
+ 		 	 			
+ 		 	 		}if(measure.getTimestamp() == null ){
+ 		 	 			measure.setTimestamp(m.getTimestamp());
+ 		 	 		
+ 		 	 		}if(measure.getMeasureDefinition() == null ){
+ 		 	 			measure.setMeasureDefinition(m.getMeasureDefinition());
+ 		 	 		}
+ 		 	 		Measure.updateMeasure(measure);
+ 		 	 		return measure.getIdMeasure();
+ 				}else{
+ 					System.out.println("Does not exist a Measure with id: " + id);
+    				return -2;
+ 				}
+ 			}else{
+ 				System.out.println("measureId is equals to " + id );
+    			return -2;
+ 			}
+ 	 		
+ 		}catch(Exception e){
+ 			System.out.println("Measure not updated due the exception: " + e);
+ 			return -1;
  		}
- 		Measure.updateMeasure(measure);
- 		return measure.getIdMeasure();
  	}
 
  	/**
@@ -570,12 +651,18 @@ public class PeopleImpl implements People {
  	 */
  	@Override
  	public int deleteMeasure(int id) {
- 		Measure m = Measure.getMeasureById(id);
- 		if (m!=null) {
- 			Measure.removeMeasure(m);
- 			return 0;
- 		} else {
- 			return -1;
+ 		try{
+ 			Measure m = Measure.getMeasureById(id);
+ 	 		if (m!=null) {
+ 	 			Measure.removeMeasure(m);
+ 	 			return 1;
+ 	 		} else {
+ 	 			System.out.println("Does not exist a Measure with id: " + id);
+ 	 			return -2;
+ 	 		}
+ 		}catch(Exception e){
+ 			System.out.println("Not possible deleting a measure due the exception: " + e);
+    		return -1;
  		}
  	}
 
