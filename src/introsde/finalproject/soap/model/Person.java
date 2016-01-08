@@ -73,7 +73,7 @@ public class Person implements Serializable {
     @OneToMany(mappedBy="person",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     private List<Measure> measure;
     
- // mappedBy must be equal to the name of the attribute in Measure that maps this relation
+    //mappedBy must be equal to the name of the attribute in Measure that maps this relation
     @OneToMany(mappedBy="person",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
     private List<Target> target;
     

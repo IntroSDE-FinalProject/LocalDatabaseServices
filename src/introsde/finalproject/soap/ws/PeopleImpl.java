@@ -106,7 +106,7 @@ public class PeopleImpl implements People {
             return -2;
         }
     	}catch(Exception e){
-    		System.out.println(e);
+    		System.out.println("Person not deleted due the exception: " + e);
     		return -1;
     	}
     }
@@ -127,6 +127,13 @@ public class PeopleImpl implements People {
     //***Doctor***
     
     // ---------------- START CRUD - Doctor --------------------
+    
+    /**
+     * This method is used to add a Doctor 
+     * 
+     * @param doctor the doctor to add
+     * @return doctorId the id of the Doctor just added
+     */
     @Override
     public int addDoctor(Doctor doctor){
     	try{
@@ -138,6 +145,14 @@ public class PeopleImpl implements People {
     	}
     }
     
+    
+    /**
+     * This method is used to read the information of the Doctor
+     * specified in the id
+     * 
+     * @param id of the Doctor  
+     * @return idDoctor
+     */
     @Override
     public Doctor readDoctor(int id) {
         System.out.println("---> Reading Doctor by id = "+id);
@@ -150,7 +165,12 @@ public class PeopleImpl implements People {
         return p;
     }
     
-    
+    /**
+     * This method is used to update the Doctor specified as paramater
+     * 
+     * @param doctor to update
+     * @return personId the id of the updated person
+     */
     @Override
     public int updateDoctor(Doctor doctor) {
     	try{
@@ -173,7 +193,12 @@ public class PeopleImpl implements People {
     	}
     }
     
-    
+    /**
+     * This method is used to delete the Person with a specified id
+     * 
+     * @param id
+     * @return 1 if ok, -2 if the resource is not found, -1 if there is an Error
+     */
     @Override
     public int deleteDoctor(int id) {
     	try{
@@ -195,6 +220,12 @@ public class PeopleImpl implements People {
     
     //***Family***
     
+    /**
+     * This method is used read the information of the Family
+     * 
+     * @param id
+     * @return idFamily
+     */
     public Family readFamily(int id){
     	System.out.println("---> Reading Family by id = "+id);
     	Family f = Family.getFamilyById(id);
@@ -207,6 +238,7 @@ public class PeopleImpl implements People {
     }
     
     
+    
     //***Reminder***
     
     // ---------------- START CRUD - REMINDER --------------------
@@ -217,12 +249,19 @@ public class PeopleImpl implements People {
      * @return the idReminder just created
      */
     public int addReminder(Reminder reminder){
-    	Reminder r = Reminder.saveReminder(reminder);
-        return r.getIdReminder();
+    	try{
+    		Reminder r = Reminder.saveReminder(reminder);
+    		return r.getIdReminder();
+    	}catch(Exception e){
+    		System.out.println("Reminder not saved due the exeception: " + e);
+    		return -1;
+    	}
     }
     
     /**
-     * This method is used to read the reminders of a specified person passed through id
+     * This method is used to read the reminders of a specified person passed through id.
+     * If the Person is not null read the reminders of the specified person otherwise 
+     * returns a null List
      * 
      * @param id
      * @return a list of reminders for the person identified by personId
@@ -230,18 +269,17 @@ public class PeopleImpl implements People {
     @Override
     public List<Reminder> readReminder(int personId) {
     	Person p = Person.getPersonById(personId);
-    	System.out.println("---> Reading Person by id = "+personId);
+    	if(p != null){
+    	//System.out.println("---> Reading Person by id = "+personId);
     	List<Reminder> reminderList = null;
-    	reminderList = Reminder.getReminderByPersonId(p); 
+    	reminderList = Reminder.getReminderByPersonId(p);
+    	System.out.println("Valore reminderList: " + reminderList);
     	return reminderList;
-
-    	/*
-        if (p!=null) {
-            System.out.println("---> Found Person by id = "+id+" => "+p.getFirstname());
-        } else {
-            System.out.println("---> Didn't find any Person with  id = "+id);
-        }
-    	 */
+    	}else{
+    		List<Reminder> reminderListException = null;
+    		System.out.println("Not exists personId return value of reminderList: " + reminderListException);
+    		return reminderListException;
+    	}
     }
     
     /**
@@ -252,8 +290,24 @@ public class PeopleImpl implements People {
      */
 	@Override
 	public int updateReminder(Reminder reminder) {
-		Reminder.updateReminder(reminder);
-		return reminder.getIdReminder();
+		try{
+    		int id = reminder.getIdReminder();
+    		if(id!= 0){
+    			if(Reminder.getReminderById(id) != null){
+    				Reminder.updateReminder(reminder);
+    				return reminder.getIdReminder();
+    			}else{
+    				System.out.println("Does not exist a Reminder with id: " + id);
+    				return -2;
+    			}
+    		}else{
+    			System.out.println("reminderId is equals to " + id );
+    			return -2;
+    		}
+    	}catch(Exception e){
+    		System.out.println("Reminder not updated due the exception: " + e);
+    		return -1;
+    	}
 	}
 
 	/**
@@ -264,22 +318,30 @@ public class PeopleImpl implements People {
 	 */
 	@Override
 	public int deleteReminder(int idReminder) {
-		Reminder r = Reminder.getReminderById(idReminder);
-		if (r!=null) {
-			Reminder.removeReminder(r);
-			return 0;
-		} else {
+		try{
+			Reminder r = Reminder.getReminderById(idReminder);
+			if (r!=null) {
+				Reminder.removeReminder(r);
+				return 1;
+			} else {
+				return -2;
+			}
+		}catch(Exception e){
+			System.out.println("Reminder not deleted due the exception: " + e);
 			return -1;
 		}
+		
 	}
     
     // ---------------- END CRUD - REMINDER --------------------
+	
 	
 	
 	//***Target***
 	
     // ---------------- START CRUD - TARGET --------------------
 
+	//TODO add exception to CRUD Methods
 	/**
 	 * This method is used to add a target
 	 * 
@@ -370,6 +432,8 @@ public class PeopleImpl implements People {
 	//**END TARGET***
 	
 
+    //TODO manage method exception and return values
+    
 	/**
 	 * This method is used to retrieve all patients associated to a specified doctor 
 	 * 

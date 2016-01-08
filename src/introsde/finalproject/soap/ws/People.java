@@ -34,7 +34,7 @@ public interface People {
     public int updatePerson(@WebParam(name="person") Person person);
     
     @WebMethod(operationName="deletePerson")
-    @WebResult(name="personId") 
+    @WebResult(name="responsePersonCode") 
     public int deletePerson(@WebParam(name="personId") int id);
     
     
@@ -57,7 +57,7 @@ public interface People {
     public int updateTarget(@WebParam(name="target") Target target);
     
     @WebMethod(operationName="deleteTarget")
-    @WebResult(name="idTarget") 
+    @WebResult(name="responseTargetCode") 
     public int deleteTarget(@WebParam(name="idTarget") int idTarget);
     
     
@@ -82,7 +82,7 @@ public interface People {
     public Doctor readDoctor(@WebParam(name="doctorId") int id);
     
     @WebMethod(operationName="deleteDoctor")
-    @WebResult(name="doctorId") 
+    @WebResult(name="responseDoctorCode") 
     public int deleteDoctor(@WebParam(name="doctorId") int id);
     
     @WebMethod(operationName="updateDoctor")
@@ -106,7 +106,7 @@ public interface People {
     public int updateReminder(@WebParam(name="reminder") Reminder reminder);
     
     @WebMethod(operationName="deleteReminder")
-    @WebResult(name="deleteReminder") 
+    @WebResult(name="responseReminderCode") 
     public int deleteReminder(@WebParam(name="idReminder") int idReminder);
     
     /**
@@ -141,7 +141,7 @@ public interface People {
     public int updateMeasure(@WebParam(name="measure") Measure measure);
     
     @WebMethod(operationName="deleteMeasure")
-    @WebResult(name="deletedMeasure") 
+    @WebResult(name="responseMeasureCode") 
     public int deleteMeasure(@WebParam(name="idMeasure") int idMeasure);
     
     
