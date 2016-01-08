@@ -341,7 +341,6 @@ public class PeopleImpl implements People {
 	
     // ---------------- START CRUD - TARGET --------------------
 
-	//TODO add exception to CRUD Methods
 	/**
 	 * This method is used to add a target
 	 * 
@@ -350,41 +349,15 @@ public class PeopleImpl implements People {
 	 */
 	@Override
 	public int addTarget(Target target) {
-		Target.saveTarget(target);
-        return target.getIdTarget();
-	}
-
-	
-	/**
-     * This method is used to update a specified reminder passed as parameter
-     * 
-     * @param reminder
-     * @return idReminder just updated
-     */
-	@Override
-	public int updateTarget(Target target) {
-		Target.updateTarget(target);
-		return target.getIdTarget();
-	}
-
-	/**
-	 * This method is used to delete a reminder
-	 * 
-	 * @param idReminder
-	 * @return 0 or 1 , 1 if the method succeed 0 otherwise
-	 */
-	@Override
-	public int deleteTarget(int idTarget) {
-		Target t = Target.getTargetById(idTarget);
-		if (t!=null) {
-			Target.removeTarget(t);
-			return 0;
-		} else {
+		try{
+			Target.saveTarget(target);
+	        return target.getIdTarget();
+		}catch(Exception e){
+			System.out.println("Target not saved due the exception: " + e);
 			return -1;
 		}
 	}
-	
-	
+
 	
 	/**
 	 * This method is used to get a list of targets for a specified personId
@@ -402,13 +375,71 @@ public class PeopleImpl implements People {
             return targetList;
         } else {
             System.out.println("---> Didn't find any Person with  id = "+id);
+            return targetList;
         }
-		return targetList;
 	}
 	
 	
-  
-    
+	
+	/**
+     * This method is used to update a specified reminder passed as parameter
+     * 
+     * @param reminder
+     * @return idReminder just updated
+     */
+	@Override
+	public int updateTarget(Target target) {
+		try{
+			int id = target.getIdTarget();
+			if(id!= 0){
+    			if(Target.getTargetById(id) != null){
+    				Target.updateTarget(target);
+    				return target.getIdTarget();
+    			}else{
+    				System.out.println("Does not exist a Target with id: " + id);
+    				return -2;
+    			}
+    		}else{
+    			System.out.println("targetId is equals to " + id );
+    			return -2;
+    		}
+		}catch(Exception e){
+			System.out.println("Target not updated due the exception: " + e);
+			return -1;
+		}
+	}
+
+	/**
+	 * This method is used to delete a reminder
+	 * 
+	 * @param idReminder
+	 * @return 0 or 1 , 1 if the method succeed 0 otherwise
+	 */
+	@Override
+	public int deleteTarget(int idTarget) {
+		try{
+			Target t = Target.getTargetById(idTarget);
+			if (t!=null) {
+				Target.removeTarget(t);
+				return 1;
+			} else {
+				return -2;
+			}
+		}catch(Exception e){
+			System.out.println("Target not deleted due the exception: " + e);
+			return -1;
+		}
+	}
+	
+    /**
+     * This method is used to retrieve information about 
+     * target for a specified person and measure
+     * Example: check if there are target about weight for the personId 1
+     * 
+     * @param idPerson
+     * @param idMeasureDef
+     * @return targetList list of target
+     */
     @Override
 	public List<Target> getTargetByMeasure(int idPerson, int idMeasureDef) {
 		Person p = Person.getPersonById(idPerson);
@@ -421,9 +452,8 @@ public class PeopleImpl implements People {
             return targetList;
         }else{
             System.out.println("Is empty or null");
+            return targetList;
         }
-		
-		return targetList;
 		
 	}
     
