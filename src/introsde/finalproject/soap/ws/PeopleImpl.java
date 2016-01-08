@@ -22,6 +22,13 @@ public class PeopleImpl implements People {
 	//***Person***
     
 	// ---------------- START CRUD - PERSON --------------------
+	
+	/**
+	 * This method is used to add a Person
+	 * 
+	 * @param person
+	 * @return idPerson the id of the Person created
+	 */
     @Override
     public int addPerson(Person person) {
     	try{
@@ -33,6 +40,13 @@ public class PeopleImpl implements People {
     	}
     }
     
+    /**
+     * This method is used to read the information of the Person
+     * specified in the id
+     * 
+     * @param id idPerson
+     * @return p Person requested
+     */
     @Override
     public Person readPerson(int id) {
         System.out.println("---> Reading Person by id = "+id);
@@ -45,6 +59,12 @@ public class PeopleImpl implements People {
         return p;
     }
     
+    /**
+     * This method is used to update the Person specified as paramater
+     * 
+     * @param person the person to update
+     * @return personId the id of the updated person
+     */
     @Override
     public int updatePerson(Person person) {
     	try{
@@ -68,6 +88,12 @@ public class PeopleImpl implements People {
         
     }
 
+    /**
+     * This method is used to delete the Person with a specified id
+     * 
+     * @param id the personId of the Person to delete
+     * @return 1 if ok, -2 if the resource is not found, -1 if there is an Error 
+     */
     @Override
     public int deletePerson(int id) {
     	try{
@@ -87,6 +113,11 @@ public class PeopleImpl implements People {
     
     // ---------------- END CRUD - Doctor --------------------
     
+    /**
+     * This method is used to retrieve the list of Person saved in the database
+     * 
+     * @return List of Person
+     */
     @Override
     public List<Person> getPeople() {
         return Person.getAll();
@@ -178,7 +209,7 @@ public class PeopleImpl implements People {
     
     //***Reminder***
     
-    
+    // ---------------- START CRUD - REMINDER --------------------
     /**
      * This method is used to add a reminder
      * 
@@ -242,10 +273,12 @@ public class PeopleImpl implements People {
 		}
 	}
     
-    
+    // ---------------- END CRUD - REMINDER --------------------
+	
 	
 	//***Target***
 	
+    // ---------------- START CRUD - TARGET --------------------
 
 	/**
 	 * This method is used to add a target
@@ -331,6 +364,8 @@ public class PeopleImpl implements People {
 		return targetList;
 		
 	}
+    
+    // ---------------- END CRUD - TARGET --------------------
 	
 	//**END TARGET***
 	
