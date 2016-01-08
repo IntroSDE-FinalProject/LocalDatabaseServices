@@ -40,40 +40,56 @@ public class PeopleImpl implements People {
 
     @Override
     public int addPerson(Person person) {
-    	int id = -1;
-        person = Person.savePerson(person);
-        id = person.getIdPerson();
-        return id;
+    	try{
+    		person = Person.savePerson(person);
+    		return person.getIdPerson();
+    	}catch(Exception e){
+    		System.out.println("Person not saved due the exeception: " + e);
+    		return -1;
+    	}
     }
-
+    
+    
     @Override
     public int updatePerson(Person person) {
-        Person.updatePerson(person);
-        return person.getIdPerson();
+    	try{
+    		int id = person.getIdPerson();
+    		if(id!= 0){
+    			if(Person.getPersonById(id) != null){
+    				Person.updatePerson(person);
+    				return person.getIdPerson();
+    			}else{
+    				System.out.println("Does not exist a Person with id: " + id);
+    				return -2;
+    			}
+    		}else{
+    			System.out.println("personId is equals to " + id );
+    			return -2;
+    		}
+    	}catch(Exception e){
+    		System.out.println(e);
+    		return -1;
+    	}
+        
     }
 
     @Override
     public int deletePerson(int id) {
+    	try{
         Person p = Person.getPersonById(id);
         if (p!=null) {
             Person.removePerson(p);
-            return 0;
+            return 1;
         } else {
-            return -1;
+        	System.out.println("Does not exist a Person with id: " + id);
+            return -2;
         }
+    	}catch(Exception e){
+    		System.out.println(e);
+    		return -1;
+    	}
     }
   
-    /*
-    @Override
-    public int updatePersonHP(int id, Measure hp) {
-        Measure ls = Measure.getMeasureById(hp.getIdMeasure());
-        if (ls.getPerson().getIdPerson() == id) {
-            Measure.updateMeasure(hp);
-            return hp.getIdMeasure();
-        } else {
-            return -1;
-        }
-    }*/
     
     //***Doctor***
     
