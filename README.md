@@ -10,7 +10,6 @@
 ## **Person**
 | Provided Methods | Return |
 |------------------|--------|
-| **CRUD** ||
 |createPerson(Person person)| idPerson |
 |getPerson(int idPerson)| Person |
 |updatePerson(Person person)| idPerson |
@@ -24,7 +23,6 @@
 ## **Doctor**
 |Provide Methods|Return|
 |---|---|
-|**CRUD**||
 |createDoctor(Doctor doctor)| idDoctor |
 |getDoctor(int idDoctor)| Doctor |
 |updateDoctor(Doctor doctor)| idDoctor |
@@ -42,7 +40,6 @@
 ## **Target**
 | Provided Methods | Return |
 |------------------|--------|
-| **CRUD** ||
 |createTarget(Target target,int idPeson)| idTarget |
 |getTarget(int idPerson, int idMeasureDef)| List of Target |
 |updateTarget(Target target)| idTarget |
@@ -54,7 +51,6 @@
 ## **Reminder**
 | Provided Methods | Return |
 |------------------|--------|
-| **CRUD** ||
 |createReminder(Reminder reminder)| idReminder |
 |getReminder(int idReminder)| List of Reminder |
 |updatePerson(Reminder reminder)| idReminder |
@@ -64,7 +60,6 @@
 ## **Measure**
 | Provided Methods | Return |
 |------------------|--------|
-| **CRUD** ||
 |createMeasure(Measure measure, int idPerson)| idPerson |
 |getMeasure(int idMeasure)| List of Measure |
 |updateMeasure(Measure Measure)| idMeasure |
