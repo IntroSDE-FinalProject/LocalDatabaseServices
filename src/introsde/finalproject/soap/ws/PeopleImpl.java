@@ -262,6 +262,25 @@ public class PeopleImpl implements People {
     		return -1;
     	}
     }
+    
+    
+    /**
+	 * This method is used to retrieve all patients associated to a specified doctor 
+	 * 
+	 * @param id doctorId
+	 * @return List of patients
+	 */
+	@Override
+	public List<Person> getPersonByDoctor(int idDoctor) {
+		Doctor d = Doctor.getDoctorById(idDoctor);
+		return d.getPatients();
+	}
+
+	
+    
+    
+    
+    
     // ---------------- END CRUD - DOCTOR --------------------
     
     
@@ -670,18 +689,6 @@ public class PeopleImpl implements People {
 
 
     
-	/**
-	 * This method is used to retrieve all patients associated to a specified doctor 
-	 * 
-	 * @param id doctorId
-	 * @return List of patients
-	 */
-	@Override
-	public List<Person> getPersonByDoctor(int idDoctor) {
-		Doctor d = Doctor.getDoctorById(idDoctor);
-		return d.getPatients();
-	}
-
 	
 	/**
 	 * This method is used to retrieve vital signs of a person, min and max value
