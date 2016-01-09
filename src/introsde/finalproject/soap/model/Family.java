@@ -54,7 +54,7 @@ public class Family implements Serializable {
 	/**
 	 * @return the idFamily
 	 */
-    @XmlAttribute(name="idFamily")
+    //@XmlAttribute(name="idFamily")
 	public int getIdFamily() {
 		return idFamily;
 	}

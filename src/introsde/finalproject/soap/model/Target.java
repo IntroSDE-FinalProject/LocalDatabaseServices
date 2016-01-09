@@ -78,7 +78,7 @@ public class Target implements Serializable {
 	public Target() {
     }
     
-    @XmlAttribute(name="idTarget")
+    //@XmlAttribute(name="idTarget")
     public int getIdTarget() {
         return idTarget;
     }
