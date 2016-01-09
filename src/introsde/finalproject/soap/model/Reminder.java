@@ -78,7 +78,7 @@ public class Reminder implements Serializable {
 	/**
 	 * @return the idReminder
 	 */
-    @XmlAttribute(name="idReminder")
+    //@XmlAttribute(name="idReminder")
 	public int getIdReminder() {
 		return idReminder;
 	}

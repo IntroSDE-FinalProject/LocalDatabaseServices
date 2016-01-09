@@ -55,7 +55,7 @@ public class Doctor implements Serializable {
 	/**
 	 * @return the idDoctor
 	 */
-    @XmlAttribute(name="idDoctor")
+    //@XmlAttribute(name="idDoctor")
 	public int getIdDoctor() {
 		return idDoctor;
 	}

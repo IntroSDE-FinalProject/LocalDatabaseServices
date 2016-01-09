@@ -74,7 +74,7 @@ public class Measure implements Serializable {
 	public Measure() {
 	}
 
-	@XmlAttribute(name="idMeasure")
+	//@XmlAttribute(name="idMeasure")
 	public int getIdMeasure() {
 		return this.idMeasure;
 	}
