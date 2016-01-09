@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
 import introsde.finalproject.soap.dao.LifeCoachDao;
@@ -77,6 +78,7 @@ public class Reminder implements Serializable {
 	/**
 	 * @return the idReminder
 	 */
+    @XmlAttribute(name="idReminder")
 	public int getIdReminder() {
 		return idReminder;
 	}

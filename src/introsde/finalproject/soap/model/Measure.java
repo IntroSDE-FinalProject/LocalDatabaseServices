@@ -25,6 +25,7 @@ import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.persistence.OneToOne;
 
@@ -69,6 +70,7 @@ public class Measure implements Serializable {
 	public Measure() {
 	}
 
+	@XmlAttribute(name="idMeasure")
 	public int getIdMeasure() {
 		return this.idMeasure;
 	}

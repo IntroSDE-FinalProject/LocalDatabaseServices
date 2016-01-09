@@ -14,6 +14,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
 import introsde.finalproject.soap.dao.LifeCoachDao;
@@ -53,6 +54,7 @@ public class Family implements Serializable {
 	/**
 	 * @return the idFamily
 	 */
+    @XmlAttribute(name="idFamily")
 	public int getIdFamily() {
 		return idFamily;
 	}

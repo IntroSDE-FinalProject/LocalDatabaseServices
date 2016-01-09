@@ -13,6 +13,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 
 import introsde.finalproject.soap.dao.LifeCoachDao;
@@ -54,6 +55,7 @@ public class Doctor implements Serializable {
 	/**
 	 * @return the idDoctor
 	 */
+    @XmlAttribute(name="idDoctor")
 	public int getIdDoctor() {
 		return idDoctor;
 	}
