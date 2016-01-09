@@ -141,7 +141,7 @@ public class PeopleImpl implements People {
     	}
     }
     
-    // ---------------- END CRUD - Doctor --------------------
+    // ---------------- END CRUD - PERSON --------------------
     
     /**
      * This method is used to retrieve the list of Person saved in the database
@@ -153,6 +153,61 @@ public class PeopleImpl implements People {
         return Person.getAll();
     }
   
+    
+
+    /**
+     * This method is used to retrieve information about the current
+     * health profile of the patient. 
+     * 
+     * 
+     * @param idPerson 
+     * @return List currentHealth containing the list of last 
+     * measure for all measure definition stored for the Person
+     */
+	@Override
+	public List<Measure> getCurrentHealth(int idPerson) {
+		Person p = Person.getPersonById(idPerson);
+		List<Measure> currentHealth = null;
+		if(p != null){
+			System.out.println("---> Found Person by id = "+idPerson+" => "+p.getIdPerson());
+            currentHealth = Measure.getCurrentHealthById(p);
+            return currentHealth;
+		}else{
+			System.out.println("---> Didn't find any Person with  id = "+idPerson);
+            return currentHealth;
+		}
+	}
+    
+
+    
+	
+	/**
+	 * This method is used to retrieve vital signs of a person, min and max value
+	 * of blood pressure
+	 * 
+	 * @param idMeasureDef
+	 * @return List of vitalSignList
+	 */
+	@Override
+	public List<Measure> getVitalSigns(int idPerson) {
+		Person p = Person.getPersonById(idPerson);
+		List<Measure> vitalSignList = null;
+		int min = 4;
+		int max = 5;
+		MeasureDefinition m1 = MeasureDefinition.getMeasureDefinitionById(min);
+		MeasureDefinition m2 = MeasureDefinition.getMeasureDefinitionById(max);
+		if (p!=null) {
+            System.out.println("---> Found Person by id = "+idPerson+" => "+p.getIdPerson());
+            vitalSignList = Measure.getVitalSigns(p,m1,m2);
+            return vitalSignList;
+        } else {
+            System.out.println("---> Didn't find any Person with  id = "+idPerson);
+            return vitalSignList;
+        }
+		
+	}
+
+    
     
     //***Doctor***
     
@@ -687,33 +742,6 @@ public class PeopleImpl implements People {
 
  	// ---------------- START CRUD - MEASURE --------------------
 
-
-    
-	
-	/**
-	 * This method is used to retrieve vital signs of a person, min and max value
-	 * of blood pressure
-	 * 
-	 * @param idMeasureDef
-	 * @return List of vitalSignList
-	 */
-	@Override
-	public List<Measure> getVitalSigns(int idPerson) {
-		Person p = Person.getPersonById(idPerson);
-		List<Measure> vitalSignList = null;
-		int min = 4;
-		int max = 5;
-		MeasureDefinition m1 = MeasureDefinition.getMeasureDefinitionById(min);
-		MeasureDefinition m2 = MeasureDefinition.getMeasureDefinitionById(max);
-		if (p!=null) {
-            System.out.println("---> Found Person by id = "+idPerson+" => "+p.getIdPerson());
-            vitalSignList = Measure.getVitalSigns(p,m1,m2);
-            return vitalSignList;
-        } else {
-            System.out.println("---> Didn't find any Person with  id = "+idPerson);
-        }
-		return vitalSignList;
-	}
 
 
 	/**
