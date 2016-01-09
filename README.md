@@ -1,2 +1,76 @@
 # LocalDatabaseServices
 
+|Return Codes|
+|---|
+| 1: OK|
+|-2: No resource|
+|-1: ERROR|
+
+
+## **Person**
+| Provided Methods | Return |
+|------------------|--------|
+| **CRUD** ||
+|createPerson(Person person)| idPerson |
+|getPerson(int idPerson)| Person |
+|updatePerson(Person person)| idPerson |
+|deletePerson(int idPerson)| idPerson |
+|||
+|getPeopleList|List of Person|
+|getCurrentHealth(int idPerson)|List of Measure |
+|ListgetVitalSigns|List of Measure|
+
+
+## **Doctor**
+|Provide Methods|Return|
+|---|---|
+|**CRUD**||
+|createDoctor(Doctor doctor)| idDoctor |
+|getDoctor(int idDoctor)| Doctor |
+|updateDoctor(Doctor doctor)| idDoctor |
+|deleteDoctor(int idDoctor)| idDoctor |
+|||
+|getPersonByDoctor(int idDoctor)|List of Person|
+
+
+## **Family**
+| Provided Methods | Return |
+|------------------|--------|
+|getFamily(int idFamily)|Family|
+
+
+## **Target**
+| Provided Methods | Return |
+|------------------|--------|
+| **CRUD** ||
+|createTarget(Target target,int idPeson)| idTarget |
+|getTarget(int idPerson, int idMeasureDef)| List of Target |
+|updateTarget(Target target)| idTarget |
+|deleteTarget(int idTarget)| idTarget |
+|||
+|getTargetList|List of Target|
+
+
+## **Reminder**
+| Provided Methods | Return |
+|------------------|--------|
+| **CRUD** ||
+|createReminder(Reminder reminder)| idReminder |
+|getReminder(int idReminder)| List of Reminder |
+|updatePerson(Reminder reminder)| idReminder |
+|deletePerson(int idReminder)| idReminder |
+
+
+## **Measure**
+| Provided Methods | Return |
+|------------------|--------|
+| **CRUD** ||
+|createMeasure(Measure measure, int idPerson)| idPerson |
+|getMeasure(int idMeasure)| List of Measure |
+|updateMeasure(Measure Measure)| idMeasure |
+|deleteMeasure(int idMeasure)| idMeasure |
+
+## **MeasureDefinition**
+| Provided Methods | Return |
+|------------------|--------|
+|getMeasureDefinition()| List of MeasureDefinition |
