@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlType;
 
@@ -48,16 +49,20 @@ public class Person implements Serializable {
         pkColumnValue="Person",
         initialValue=1, allocationSize=1)
     @Column(name="idPerson", nullable=false)
+    @XmlElement(required=true)
     private int idPerson;
     
     @Column(name="firstname", nullable=false)
+    @XmlElement(required=true)
     private String firstname;
     
     @Column(name="lastname", nullable=false)
+    @XmlElement(required=true)
     private String lastname;
     
     @Temporal(TemporalType.DATE)
     @Column(name="birthdate", nullable=false)
+    @XmlElement(required=true)
     private Date birthdate;
     
     @Column(name="email")
@@ -67,6 +72,7 @@ public class Person implements Serializable {
     private String fiscalcode;
     
     @Column(name="gender", nullable=false)
+    @XmlElement(required=true)
     private String gender;
     
     // mappedBy must be equal to the name of the attribute in Measure that maps this relation

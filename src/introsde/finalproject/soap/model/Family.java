@@ -15,6 +15,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import introsde.finalproject.soap.dao.LifeCoachDao;
@@ -36,20 +37,25 @@ public class Family implements Serializable {
         pkColumnValue="Family",
         initialValue=1, allocationSize=1)
     @Column(name="idFamily", nullable=false)
+    @XmlElement(required=true)
     private int idFamily;
     
     @Column(name="firstname", nullable=false)
+    @XmlElement(required=true)
     private String firstname;
     
     @Column(name="lastname", nullable=false)
+    @XmlElement(required=true)
     private String lastname;
     
     @Column(name="role", nullable=false)
+    @XmlElement(required=true)
     private String role;
     
     @OneToOne
 	@JoinColumn(name="idPerson",referencedColumnName="idPerson", nullable=false)
-	private Person person;
+    //@XmlElement(required=true)
+    private Person person;
     
 	/**
 	 * @return the idFamily

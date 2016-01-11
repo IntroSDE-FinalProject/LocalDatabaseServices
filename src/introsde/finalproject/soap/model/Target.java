@@ -23,6 +23,7 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import introsde.finalproject.soap.dao.LifeCoachDao;
@@ -48,20 +49,25 @@ public class Target implements Serializable {
 	    pkColumnName="name", valueColumnName="seq",
 	    pkColumnValue="Target")
 	@Column(name="idTarget", nullable=false)
+	@XmlElement(required=true)
 	private int idTarget;
 	
 	@Column(name="value", nullable=false)
+	@XmlElement(required=true)
 	private int value;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="startDateTarget")
+	@XmlElement(required=true)
 	private Date startDateTarget;
 	
 	@Temporal(TemporalType.DATE)
 	@Column(name="endDateTarget", nullable=false)
+	@XmlElement(required=true)
 	private Date endDateTarget;
 	
 	@Column(name="conditionTarget", nullable=false)
+	@XmlElement(required=true)
 	private String conditionTarget;
 	
 	@Column(name="achieved")
@@ -69,6 +75,7 @@ public class Target implements Serializable {
 	
 	@ManyToOne
 	@JoinColumn(name="idPerson",referencedColumnName="idPerson", nullable=false)
+	@XmlElement(required=true)
 	private Person person;
 	
 	@ManyToOne
