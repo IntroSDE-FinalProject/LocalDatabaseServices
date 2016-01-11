@@ -165,7 +165,7 @@ public class Person implements Serializable {
         this.measure = param;
     }
     
-    @XmlElementWrapper(name = "Tagets")
+    @XmlElementWrapper(name = "Targets")
     public List<Target> getTarget() {
         return this.target;
     }
