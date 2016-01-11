@@ -53,29 +53,23 @@ public class Reminder implements Serializable {
         pkColumnValue="Reminder",
         initialValue=1, allocationSize=1)
     @Column(name="idReminder", nullable=false)
-    @XmlElement(required=true)
     private int idReminder;
 
     @Column(name="text", nullable=false)
-    @XmlElement(required=true)
     private String text;
     
     @Temporal(TemporalType.DATE)
     @Column(name="createReminder", nullable=false)
-    @XmlElement(required=true)
     private Date createReminder;
     
     @Temporal(TemporalType.DATE)
     @Column(name="expireReminder", nullable=false)
-    @XmlElement(required=true)
     private Date expireReminder;
     
     @Column(name="autocreate", nullable=false)
-    @XmlElement(required=true)
     private Boolean autocreate;
     
     @Column(name="relevanceLevel", nullable=false)
-    @XmlElement(required=true)
     private int relevanceLevel;
     
     @ManyToOne
@@ -85,7 +79,7 @@ public class Reminder implements Serializable {
 	/**
 	 * @return the idReminder
 	 */
-    //@XmlAttribute(name="idReminder")
+    @XmlElement(required=true)
 	public int getIdReminder() {
 		return idReminder;
 	}
@@ -100,6 +94,7 @@ public class Reminder implements Serializable {
 	/**
 	 * @return the text
 	 */
+	@XmlElement(required=true)
 	public String getText() {
 		return text;
 	}
@@ -114,6 +109,7 @@ public class Reminder implements Serializable {
 	/**
 	 * @return the createReminder
 	 */
+	@XmlElement(required=true)
 	public String getCreateReminder() {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(this.createReminder);
@@ -132,6 +128,7 @@ public class Reminder implements Serializable {
 	/**
 	 * @return the expireReminder
 	 */
+	@XmlElement(required=true)
 	public String getExpireReminder() {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(this.expireReminder);
@@ -150,6 +147,7 @@ public class Reminder implements Serializable {
 	/**
 	 * @return the autocreate
 	 */
+	@XmlElement(required=true)
 	public Boolean getAutocreate() {
 		return autocreate;
 	}
@@ -164,6 +162,7 @@ public class Reminder implements Serializable {
 	/**
 	 * @return the relevanceLevel
 	 */
+	@XmlElement(required=true)
 	public int getRelevanceLevel() {
 		return relevanceLevel;
 	}

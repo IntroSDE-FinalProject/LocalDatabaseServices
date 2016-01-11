@@ -37,23 +37,18 @@ public class Doctor implements Serializable {
         pkColumnValue="Doctor",
         initialValue=1, allocationSize=1)
     @Column(name="idDoctor", nullable=false)
-    @XmlElement(required=true)
     private int idDoctor;
     
     @Column(name="firstname", nullable=false)
-    @XmlElement(required=true)
     private String firstname;
     
     @Column(name="lastname", nullable=false)
-    @XmlElement(required=true)
     private String lastname;
     
     @Column(name="specialization", nullable=false)
-    @XmlElement(required=true)
     private String specialization;
     
     @Column(name="city", nullable=false)
-    @XmlElement(required=true)
     private String city;
     
     @OneToMany(mappedBy="doctor")
@@ -62,7 +57,7 @@ public class Doctor implements Serializable {
 	/**
 	 * @return the idDoctor
 	 */
-    //@XmlAttribute(name="idDoctor")
+    @XmlElement(required=true)
 	public int getIdDoctor() {
 		return idDoctor;
 	}
@@ -77,6 +72,7 @@ public class Doctor implements Serializable {
 	/**
 	 * @return the firstname
 	 */
+	@XmlElement(required=true)
 	public String getFirstname() {
 		return firstname;
 	}
@@ -91,6 +87,7 @@ public class Doctor implements Serializable {
 	/**
 	 * @return the lastname
 	 */
+	@XmlElement(required=true)
 	public String getLastname() {
 		return lastname;
 	}
@@ -105,6 +102,7 @@ public class Doctor implements Serializable {
 	/**
 	 * @return the specialization
 	 */
+	@XmlElement(required=true)
 	public String getSpecialization() {
 		return specialization;
 	}
@@ -119,6 +117,7 @@ public class Doctor implements Serializable {
 	/**
 	 * @return the city
 	 */
+	@XmlElement(required=true)
 	public String getCity() {
 		return city;
 	}

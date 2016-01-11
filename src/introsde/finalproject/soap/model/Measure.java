@@ -55,32 +55,27 @@ public class Measure implements Serializable {
 	    pkColumnName="name", valueColumnName="seq",
 	    pkColumnValue="Measure")
 	@Column(name = "idMeasure", nullable=false)
-	@XmlElement(required=true)
 	private int idMeasure;
 
 	@Column(name = "value", nullable=false)
-	@XmlElement(required=true)
 	private String value;
 	
 	@Temporal(TemporalType.DATE)
     @Column(name="timestamp", nullable=false)
-	@XmlElement(required=true)
     private Date timestamp;
 	
 	@OneToOne
 	@JoinColumn(name = "idMeasureDef", referencedColumnName = "idMeasureDef", nullable=false, insertable = true, updatable = true)
-	@XmlElement(required=true)
 	private MeasureDefinition measureDefinition;
 	
 	@ManyToOne
 	@JoinColumn(name="idPerson",referencedColumnName="idPerson", nullable=false)
-	//@XmlElement(required=true)
 	private Person person;
 	
 	public Measure() {
 	}
 
-	//@XmlAttribute(name="idMeasure")
+	@XmlElement(required=true)
 	public int getIdMeasure() {
 		return this.idMeasure;
 	}
@@ -89,6 +84,7 @@ public class Measure implements Serializable {
 		this.idMeasure = idMeasure;
 	}
 
+	@XmlElement(required=true)
 	public String getValue() {
 		return this.value;
 	}
@@ -100,6 +96,7 @@ public class Measure implements Serializable {
 	/**
 	 * @return the timestamp
 	 */
+	@XmlElement(required=true)
 	public String getTimestamp() {
 		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(this.timestamp);
@@ -115,6 +112,7 @@ public class Measure implements Serializable {
         this.timestamp = date;
 	}
 	
+	@XmlElement(required=true)
 	public MeasureDefinition getMeasureDefinition() {
 		return measureDefinition;
 	}

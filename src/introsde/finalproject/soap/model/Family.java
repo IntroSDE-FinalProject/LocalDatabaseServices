@@ -37,30 +37,25 @@ public class Family implements Serializable {
         pkColumnValue="Family",
         initialValue=1, allocationSize=1)
     @Column(name="idFamily", nullable=false)
-    @XmlElement(required=true)
     private int idFamily;
     
     @Column(name="firstname", nullable=false)
-    @XmlElement(required=true)
     private String firstname;
     
     @Column(name="lastname", nullable=false)
-    @XmlElement(required=true)
     private String lastname;
     
     @Column(name="role", nullable=false)
-    @XmlElement(required=true)
     private String role;
     
     @OneToOne
 	@JoinColumn(name="idPerson",referencedColumnName="idPerson", nullable=false)
-    //@XmlElement(required=true)
     private Person person;
     
 	/**
 	 * @return the idFamily
 	 */
-    //@XmlAttribute(name="idFamily")
+    @XmlElement(required=true)
 	public int getIdFamily() {
 		return idFamily;
 	}
@@ -75,6 +70,7 @@ public class Family implements Serializable {
 	/**
 	 * @return the firstname
 	 */
+	@XmlElement(required=true)
 	public String getFirstname() {
 		return firstname;
 	}
@@ -89,6 +85,7 @@ public class Family implements Serializable {
 	/**
 	 * @return the lastname
 	 */
+	@XmlElement(required=true)
 	public String getLastname() {
 		return lastname;
 	}
@@ -103,6 +100,7 @@ public class Family implements Serializable {
 	/**
 	 * @return the role
 	 */
+	@XmlElement(required=true)
 	public String getRole() {
 		return role;
 	}

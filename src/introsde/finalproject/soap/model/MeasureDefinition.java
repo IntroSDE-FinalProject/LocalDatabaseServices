@@ -25,11 +25,9 @@ public class MeasureDefinition implements Serializable {
 	    pkColumnName="name", valueColumnName="seq",
 	    pkColumnValue="MeasureDefinition")
 	@Column(name="idMeasureDef", nullable=false)
-	@XmlElement(required=true)
 	private int idMeasureDef;
 
 	@Column(name="measureName", nullable=false)
-	@XmlElement(required=true)
 	private String measureName;
 
 	@Column(name="measureType")
@@ -47,7 +45,7 @@ public class MeasureDefinition implements Serializable {
 	public MeasureDefinition() {
 	}
 	
-	//@XmlAttribute(name="idMeasureDefintion")
+	@XmlElement(required=true)
 	public int getIdMeasureDef() {
 		return this.idMeasureDef;
 	}
@@ -56,6 +54,7 @@ public class MeasureDefinition implements Serializable {
 		this.idMeasureDef = idMeasureDef;
 	}
 
+	@XmlElement(required=true)
 	public String getMeasureName() {
 		return this.measureName;
 	}
