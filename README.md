@@ -51,7 +51,7 @@
 ## **Reminder**
 | Provided Methods | Return |
 |------------------|--------|
-|createReminder(Reminder reminder)| idReminder |
+|createReminder(Reminder reminder, int idPeson)| idReminder |
 |getReminder(int idReminder)| List of Reminder |
 |updatePerson(Reminder reminder)| idReminder |
 |deletePerson(int idReminder)| idReminder |
