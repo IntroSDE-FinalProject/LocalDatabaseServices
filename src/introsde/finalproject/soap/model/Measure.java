@@ -26,6 +26,7 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.persistence.OneToOne;
 
@@ -54,21 +55,26 @@ public class Measure implements Serializable {
 	    pkColumnName="name", valueColumnName="seq",
 	    pkColumnValue="Measure")
 	@Column(name = "idMeasure", nullable=false)
+	@XmlElement(required=true)
 	private int idMeasure;
 
 	@Column(name = "value", nullable=false)
+	@XmlElement(required=true)
 	private String value;
 	
 	@Temporal(TemporalType.DATE)
     @Column(name="timestamp", nullable=false)
+	@XmlElement(required=true)
     private Date timestamp;
 	
 	@OneToOne
 	@JoinColumn(name = "idMeasureDef", referencedColumnName = "idMeasureDef", nullable=false, insertable = true, updatable = true)
+	@XmlElement(required=true)
 	private MeasureDefinition measureDefinition;
 	
 	@ManyToOne
 	@JoinColumn(name="idPerson",referencedColumnName="idPerson", nullable=false)
+	//@XmlElement(required=true)
 	private Person person;
 	
 	public Measure() {

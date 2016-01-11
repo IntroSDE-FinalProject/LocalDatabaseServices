@@ -23,6 +23,7 @@ import javax.persistence.TableGenerator;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import introsde.finalproject.soap.dao.LifeCoachDao;
@@ -52,28 +53,34 @@ public class Reminder implements Serializable {
         pkColumnValue="Reminder",
         initialValue=1, allocationSize=1)
     @Column(name="idReminder", nullable=false)
+    @XmlElement(required=true)
     private int idReminder;
 
     @Column(name="text", nullable=false)
+    @XmlElement(required=true)
     private String text;
     
     @Temporal(TemporalType.DATE)
     @Column(name="createReminder", nullable=false)
+    @XmlElement(required=true)
     private Date createReminder;
     
     @Temporal(TemporalType.DATE)
     @Column(name="expireReminder", nullable=false)
+    @XmlElement(required=true)
     private Date expireReminder;
     
     @Column(name="autocreate", nullable=false)
+    @XmlElement(required=true)
     private Boolean autocreate;
     
     @Column(name="relevanceLevel", nullable=false)
+    @XmlElement(required=true)
     private int relevanceLevel;
     
     @ManyToOne
 	@JoinColumn(name="idPerson",referencedColumnName="idPerson", nullable=false)
-	private Person person;
+    private Person person;
 
 	/**
 	 * @return the idReminder

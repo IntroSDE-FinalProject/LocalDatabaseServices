@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
 
 /**
@@ -24,9 +25,11 @@ public class MeasureDefinition implements Serializable {
 	    pkColumnName="name", valueColumnName="seq",
 	    pkColumnValue="MeasureDefinition")
 	@Column(name="idMeasureDef", nullable=false)
+	@XmlElement(required=true)
 	private int idMeasureDef;
 
 	@Column(name="measureName", nullable=false)
+	@XmlElement(required=true)
 	private String measureName;
 
 	@Column(name="measureType")
