@@ -103,7 +103,7 @@ public interface People {
    
     @WebMethod(operationName="createReminder")
     @WebResult(name="reminder") 
-    public int addReminder(@WebParam(name="reminder") Reminder reminder,@WebParam(name="reminder") int idPerson);
+    public int addReminder(@WebParam(name="reminder") Reminder reminder,@WebParam(name="idPerson") int idPerson);
     
     @WebMethod(operationName="getReminder")
     @WebResult(name="reminder") 
