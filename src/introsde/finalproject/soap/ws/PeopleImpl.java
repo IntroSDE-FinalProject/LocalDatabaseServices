@@ -369,8 +369,10 @@ public class PeopleImpl implements People {
      * @param reminder
      * @return the idReminder just created
      */
-    public int addReminder(Reminder reminder){
+    public int addReminder(Reminder reminder, int idPerson){
     	try{
+    		Person p = Person.getPersonById(idPerson);
+			reminder.setPerson(p);
     		Reminder r = Reminder.saveReminder(reminder);
     		return r.getIdReminder();
     	}catch(Exception e){
