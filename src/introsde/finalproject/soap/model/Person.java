@@ -49,20 +49,16 @@ public class Person implements Serializable {
         pkColumnValue="Person",
         initialValue=1, allocationSize=1)
     @Column(name="idPerson", nullable=false)
-    @XmlElement(required=true)
     private int idPerson;
     
     @Column(name="firstname", nullable=false)
-    @XmlElement(required=true)
     private String firstname;
     
     @Column(name="lastname", nullable=false)
-    @XmlElement(required=true)
     private String lastname;
     
     @Temporal(TemporalType.DATE)
     @Column(name="birthdate", nullable=false)
-    @XmlElement(required=true)
     private Date birthdate;
     
     @Column(name="email")
@@ -72,7 +68,6 @@ public class Person implements Serializable {
     private String fiscalcode;
     
     @Column(name="gender", nullable=false)
-    @XmlElement(required=true)
     private String gender;
     
     // mappedBy must be equal to the name of the attribute in Measure that maps this relation
@@ -94,7 +89,7 @@ public class Person implements Serializable {
         return this.idPerson;
     }
     
-    //@XmlAttribute(name="idPerson")
+    @XmlElement(required=true)
     public int getIdPerson() {
         return idPerson;
     }
@@ -103,6 +98,7 @@ public class Person implements Serializable {
         this.idPerson = idPerson;
     }
     
+    @XmlElement(required=true)
     public String getFirstname() {
         return this.firstname;
     }
@@ -111,6 +107,7 @@ public class Person implements Serializable {
         this.firstname = firstname;
     }
     
+    @XmlElement(required=true)
     public String getLastname() {
         return this.lastname;
     }
@@ -119,6 +116,7 @@ public class Person implements Serializable {
         this.lastname = lastname;
     }
     
+    @XmlElement(required=true)
     public String getBirthdate(){
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         return df.format(this.birthdate);
@@ -146,6 +144,7 @@ public class Person implements Serializable {
         this.fiscalcode = fiscalcode;
     }
     
+    @XmlElement(required=true)
     public String getGender() {
         return this.gender;
     }
@@ -166,6 +165,7 @@ public class Person implements Serializable {
         this.measure = param;
     }
     
+    @XmlElementWrapper(name = "Tagets")
     public List<Target> getTarget() {
         return this.target;
     }
