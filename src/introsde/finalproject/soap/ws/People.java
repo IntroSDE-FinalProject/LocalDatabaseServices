@@ -1,5 +1,6 @@
 package introsde.finalproject.soap.ws;
 import introsde.finalproject.soap.model.*;
+import introsde.finalproject.soap.wrapper.ListMeasureWrapper;
 
 import java.text.ParseException;
 import java.util.List;
@@ -44,7 +45,7 @@ public interface People {
     
     @WebMethod(operationName="getCurrentHealth")
     @WebResult(name="currentHealth") 
-    public List<Measure> getCurrentHealth(@WebParam(name="personId") int id);
+    public ListMeasureWrapper getCurrentHealth(@WebParam(name="personId") int id);
         
     //***Doctor***
     

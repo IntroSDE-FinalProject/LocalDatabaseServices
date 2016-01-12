@@ -7,6 +7,7 @@ import introsde.finalproject.soap.model.MeasureDefinition;
 import introsde.finalproject.soap.model.Person;
 import introsde.finalproject.soap.model.Reminder;
 import introsde.finalproject.soap.model.Target;
+import introsde.finalproject.soap.wrapper.ListMeasureWrapper;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -165,16 +166,19 @@ public class PeopleImpl implements People {
      * measure for all measure definition stored for the Person
      */
 	@Override
-	public List<Measure> getCurrentHealth(int idPerson) {
+	public ListMeasureWrapper getCurrentHealth(int idPerson) {
 		Person p = Person.getPersonById(idPerson);
 		List<Measure> currentHealth = null;
+		ListMeasureWrapper lmw = new ListMeasureWrapper();
 		if(p != null){
 			System.out.println("---> Found Person by id = "+idPerson+" => "+p.getIdPerson());
             currentHealth = Measure.getCurrentHealthById(p);
-            return currentHealth;
+            lmw.setMeasure(currentHealth);
+            return lmw;
 		}else{
 			System.out.println("---> Didn't find any Person with  id = "+idPerson);
-            return currentHealth;
+			lmw.setMeasure(currentHealth);
+            return lmw;
 		}
 	}
     
