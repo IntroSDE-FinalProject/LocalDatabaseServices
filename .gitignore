@@ -20,5 +20,5 @@ build/
 ivy/
 WebContent/WEB-INF/lib
 *.log
-*.sqlite
+#*.sqlite
 *.sqlite-journal

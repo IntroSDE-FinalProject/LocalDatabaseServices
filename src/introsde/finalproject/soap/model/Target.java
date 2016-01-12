@@ -65,7 +65,7 @@ public class Target implements Serializable {
 	@Column(name="conditionTarget", nullable=false)
 	private String conditionTarget;
 	
-	@Column(name="achieved")
+	@Column(name="achieved", nullable=false)
 	private Boolean achieved;
 	
 	@ManyToOne
@@ -159,6 +159,7 @@ public class Target implements Serializable {
 	/**
 	 * @return the achieved
 	 */
+	@XmlElement(required=true)
 	public Boolean getAchieved() {
 		return achieved;
 	}
