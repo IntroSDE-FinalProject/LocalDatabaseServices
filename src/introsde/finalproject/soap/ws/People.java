@@ -41,7 +41,7 @@ public interface People {
     
     @WebMethod(operationName="getVitalSigns")
     @WebResult(name="vitalSigns") 
-    public List<Measure> getVitalSigns(@WebParam(name="personId") int id);
+    public ListMeasureWrapper getVitalSigns(@WebParam(name="personId") int id);
     
     @WebMethod(operationName="getCurrentHealth")
     @WebResult(name="currentHealth") 

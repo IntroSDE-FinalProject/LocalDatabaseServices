@@ -193,9 +193,10 @@ public class PeopleImpl implements People {
 	 * @return List of vitalSignList
 	 */
 	@Override
-	public List<Measure> getVitalSigns(int idPerson) {
+	public ListMeasureWrapper getVitalSigns(int idPerson) {
 		Person p = Person.getPersonById(idPerson);
 		List<Measure> vitalSignList = null;
+		ListMeasureWrapper lmw = new ListMeasureWrapper();
 		int min = 4;
 		int max = 5;
 		MeasureDefinition m1 = MeasureDefinition.getMeasureDefinitionById(min);
@@ -203,10 +204,12 @@ public class PeopleImpl implements People {
 		if (p!=null) {
             System.out.println("---> Found Person by id = "+idPerson+" => "+p.getIdPerson());
             vitalSignList = Measure.getVitalSigns(p,m1,m2);
-            return vitalSignList;
+            lmw.setMeasure(vitalSignList);
+            return lmw;
         } else {
             System.out.println("---> Didn't find any Person with  id = "+idPerson);
-            return vitalSignList;
+            lmw.setMeasure(vitalSignList);
+            return lmw;
         }
 		
 	}
