@@ -1,6 +1,6 @@
 package introsde.finalproject.soap.ws;
 import introsde.finalproject.soap.model.*;
-import introsde.finalproject.soap.wrapper.ListMeasureWrapper;
+import introsde.finalproject.soap.wrapper.*;
 
 import java.text.ParseException;
 import java.util.List;
@@ -84,7 +84,7 @@ public interface People {
     
     @WebMethod(operationName="getTarget")
     @WebResult(name="targets") 
-    public List<Target> getTargetByMeasure(@WebParam(name="personId") int id, @WebParam(name="idMeasureDef") int idMeasureDef);
+    public ListTargetWrapper getTargetByMeasure(@WebParam(name="personId") int id, @WebParam(name="idMeasureDef") int idMeasureDef);
 
     @WebMethod(operationName="updateTarget")
     @WebResult(name="targetId") 
@@ -96,7 +96,7 @@ public interface People {
     
     @WebMethod(operationName="getTargetList")
     @WebResult(name="targets") 
-    public List<Target> getTargetList(@WebParam(name="personId") int id);
+    public ListTargetWrapper getTargetList(@WebParam(name="personId") int id);
     
     
     
@@ -108,7 +108,7 @@ public interface People {
     
     @WebMethod(operationName="getReminder")
     @WebResult(name="reminder") 
-    public List<Reminder> readReminder(@WebParam(name="personId") int personId);
+    public ListReminderWrapper readReminder(@WebParam(name="personId") int personId);
     
     @WebMethod(operationName="updateReminder")
     @WebResult(name="updateReminder") 
@@ -126,7 +126,7 @@ public interface People {
     
     @WebMethod(operationName="getMeasure")
     @WebResult(name="measure") 
-    public List<Measure> getMeasure(@WebParam(name="personId") int personId);
+    public ListMeasureWrapper getMeasure(@WebParam(name="personId") int personId);
     
     @WebMethod(operationName="updateMeasure")
     @WebResult(name="idUpdatedMeasure") 

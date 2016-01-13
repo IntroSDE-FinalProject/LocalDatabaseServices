@@ -17,7 +17,7 @@ public class ListTargetWrapper {
 	@JsonProperty("target")
 	public List<Target> target = new ArrayList<Target>();
 	
-	public void setMeasure(List<Target> targets) {
+	public void setTarget(List<Target> targets) {
 		this.target = targets;
 	}
 	

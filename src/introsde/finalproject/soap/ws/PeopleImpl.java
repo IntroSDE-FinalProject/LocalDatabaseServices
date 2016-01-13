@@ -7,7 +7,7 @@ import introsde.finalproject.soap.model.MeasureDefinition;
 import introsde.finalproject.soap.model.Person;
 import introsde.finalproject.soap.model.Reminder;
 import introsde.finalproject.soap.model.Target;
-import introsde.finalproject.soap.wrapper.ListMeasureWrapper;
+import introsde.finalproject.soap.wrapper.*;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -169,16 +169,16 @@ public class PeopleImpl implements People {
 	public ListMeasureWrapper getCurrentHealth(int idPerson) {
 		Person p = Person.getPersonById(idPerson);
 		List<Measure> currentHealth = null;
-		ListMeasureWrapper lmw = new ListMeasureWrapper();
+		ListMeasureWrapper lmwrapper = new ListMeasureWrapper();
 		if(p != null){
 			System.out.println("---> Found Person by id = "+idPerson+" => "+p.getIdPerson());
             currentHealth = Measure.getCurrentHealthById(p);
-            lmw.setMeasure(currentHealth);
-            return lmw;
+            lmwrapper.setMeasure(currentHealth);
+            return lmwrapper;
 		}else{
 			System.out.println("---> Didn't find any Person with  id = "+idPerson);
-			lmw.setMeasure(currentHealth);
-            return lmw;
+			lmwrapper.setMeasure(currentHealth);
+            return lmwrapper;
 		}
 	}
     
@@ -196,7 +196,7 @@ public class PeopleImpl implements People {
 	public ListMeasureWrapper getVitalSigns(int idPerson) {
 		Person p = Person.getPersonById(idPerson);
 		List<Measure> vitalSignList = null;
-		ListMeasureWrapper lmw = new ListMeasureWrapper();
+		ListMeasureWrapper lmwrapper = new ListMeasureWrapper();
 		int min = 4;
 		int max = 5;
 		MeasureDefinition m1 = MeasureDefinition.getMeasureDefinitionById(min);
@@ -204,12 +204,12 @@ public class PeopleImpl implements People {
 		if (p!=null) {
             System.out.println("---> Found Person by id = "+idPerson+" => "+p.getIdPerson());
             vitalSignList = Measure.getVitalSigns(p,m1,m2);
-            lmw.setMeasure(vitalSignList);
-            return lmw;
+            lmwrapper.setMeasure(vitalSignList);
+            return lmwrapper;
         } else {
             System.out.println("---> Didn't find any Person with  id = "+idPerson);
-            lmw.setMeasure(vitalSignList);
-            return lmw;
+            lmwrapper.setMeasure(vitalSignList);
+            return lmwrapper;
         }
 		
 	}
@@ -397,18 +397,21 @@ public class PeopleImpl implements People {
      * @return a list of reminders for the person identified by personId
      */
     @Override
-    public List<Reminder> readReminder(int personId) {
+    public ListReminderWrapper readReminder(int personId) {
     	Person p = Person.getPersonById(personId);
+    	ListReminderWrapper lrwrapper = new ListReminderWrapper();
     	if(p != null){
     	//System.out.println("---> Reading Person by id = "+personId);
     	List<Reminder> reminderList = null;
     	reminderList = Reminder.getReminderByPersonId(p);
     	System.out.println("Valore reminderList: " + reminderList);
-    	return reminderList;
+    	lrwrapper.setReminder(reminderList);
+    	return lrwrapper;
     	}else{
     		List<Reminder> reminderListException = null;
     		System.out.println("Not exists personId return value of reminderList: " + reminderListException);
-    		return reminderListException;
+    		lrwrapper.setReminder(reminderListException);
+    		return lrwrapper;
     	}
     }
     
@@ -524,16 +527,19 @@ public class PeopleImpl implements People {
 	 * @return list of targets for a specified person identified by a personId
 	 */
 	@Override
-	public List<Target> getTargetList(int id) {
+	public ListTargetWrapper getTargetList(int id) {
 		Person p = Person.getPersonById(id);
 		List<Target> targetList = null;
+		ListTargetWrapper ltwrapper = new ListTargetWrapper();
         if (p!=null) {
             System.out.println("---> Found Person by id = "+id+" => "+p.getIdPerson());
             targetList = Target.getTargetByPersonId(p);
-            return targetList;
+            ltwrapper.setTarget(targetList);
+            return ltwrapper;
         } else {
             System.out.println("---> Didn't find any Person with  id = "+id);
-            return targetList;
+            ltwrapper.setTarget(targetList);
+            return ltwrapper;
         }
 	}
 	
@@ -623,18 +629,21 @@ public class PeopleImpl implements People {
      * @return targetList list of target
      */
     @Override
-	public List<Target> getTargetByMeasure(int idPerson, int idMeasureDef) {
+	public ListTargetWrapper getTargetByMeasure(int idPerson, int idMeasureDef) {
 		Person p = Person.getPersonById(idPerson);
 		MeasureDefinition m = MeasureDefinition.getMeasureDefinitionById(idMeasureDef);
 		List<Target> targetList = null;
+		ListTargetWrapper ltwrapper = new ListTargetWrapper();
 		if( (p != null) && (m != null) ){
 			System.out.println("---> Found Person by id = "+idPerson+" => "+p.getIdPerson());
 			System.out.println("---> Found MeasureDefinition by id = "+idMeasureDef+" => "+m.getIdMeasureDef());
 			targetList = Target.getTargetByMeasure(p, m);
-            return targetList;
+			ltwrapper.setTarget(targetList);
+            return ltwrapper;
         }else{
             System.out.println("Is empty or null");
-            return targetList;
+            ltwrapper.setTarget(targetList);
+            return ltwrapper;
         }
 		
 	}
@@ -676,9 +685,11 @@ public class PeopleImpl implements People {
  	 * @return List of measure associated to the specified person
  	 */
  	@Override
- 	public List<Measure> getMeasure(int id) {
+ 	public ListMeasureWrapper getMeasure(int id) {
  		Person p = Person.getPersonById(id);
- 		return p.getMeasure();
+ 		ListMeasureWrapper lmwrapper = new ListMeasureWrapper();
+ 		lmwrapper.setMeasure(p.getMeasure());
+ 		return lmwrapper;
  	}
 
  	

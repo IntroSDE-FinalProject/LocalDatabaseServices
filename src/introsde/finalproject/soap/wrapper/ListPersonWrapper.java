@@ -17,7 +17,7 @@ public class ListPersonWrapper {
 	@JsonProperty("person")
 	public List<Person> person = new ArrayList<Person>();
 	
-	public void setMeasure(List<Person> persons) {
+	public void setPerson(List<Person> persons) {
 		this.person = persons;
 	}
 	

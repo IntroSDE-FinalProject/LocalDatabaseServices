@@ -17,7 +17,7 @@ public class ListReminderWrapper {
 	@JsonProperty("reminder")
 	public List<Reminder> reminder = new ArrayList<Reminder>();
 	
-	public void setMeasure(List<Reminder> reminders) {
+	public void setReminder(List<Reminder> reminders) {
 		this.reminder = reminders;
 	}
 	
