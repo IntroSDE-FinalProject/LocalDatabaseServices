@@ -150,8 +150,10 @@ public class PeopleImpl implements People {
      * @return List of Person
      */
     @Override
-    public List<Person> getPeople() {
-        return Person.getAll();
+    public ListPersonWrapper getPeople() {
+    	ListPersonWrapper lpwrapper = new ListPersonWrapper();
+        lpwrapper.setPerson(Person.getAll());
+    	return lpwrapper;
     }
   
     
@@ -333,9 +335,11 @@ public class PeopleImpl implements People {
 	 * @return List of patients
 	 */
 	@Override
-	public List<Person> getPersonByDoctor(int idDoctor) {
+	public ListPersonWrapper getPersonByDoctor(int idDoctor) {
+		ListPersonWrapper lpwrapper = new ListPersonWrapper();
 		Doctor d = Doctor.getDoctorById(idDoctor);
-		return d.getPatients();
+		lpwrapper.setPerson(d.getPatients());
+		return lpwrapper;
 	}
 
 	

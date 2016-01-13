@@ -37,7 +37,7 @@ public interface People {
     
     @WebMethod(operationName="getPeopleList")
     @WebResult(name="people") 
-    public List<Person> getPeople();
+    public ListPersonWrapper getPeople();
     
     @WebMethod(operationName="getVitalSigns")
     @WebResult(name="vitalSigns") 
@@ -67,7 +67,7 @@ public interface People {
     
     @WebMethod(operationName="getPersonByDoctor")
     @WebResult(name="patientList") 
-    public List<Person> getPersonByDoctor(@WebParam(name="idDoctor") int idDoctor);
+    public ListPersonWrapper getPersonByDoctor(@WebParam(name="idDoctor") int idDoctor);
     
     //****Family***
     
