@@ -192,6 +192,7 @@ public class Target implements Serializable {
 	// database operations
 		public static Target getTargetById(int personId) {
 			EntityManager em = LifeCoachDao.instance.createEntityManager();
+			em.getEntityManagerFactory().getCache().evictAll();
 			Target p = em.find(Target.class, personId);
 			LifeCoachDao.instance.closeConnections(em);
 			return p;
@@ -199,6 +200,7 @@ public class Target implements Serializable {
 		
 		public static List<Target> getAll() {
 			EntityManager em = LifeCoachDao.instance.createEntityManager();
+			em.getEntityManagerFactory().getCache().evictAll();
 		    List<Target> list = em.createNamedQuery("Target.findAll", Target.class).getResultList();
 		    LifeCoachDao.instance.closeConnections(em);
 		    return list;

@@ -134,6 +134,7 @@ public class Measure implements Serializable {
 	// Database operations
 	public static Measure getMeasureById(int MeasureId) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		em.getEntityManagerFactory().getCache().evictAll();
 		Measure p = em.find(Measure.class, MeasureId);
 		LifeCoachDao.instance.closeConnections(em);
 		return p;
@@ -141,6 +142,7 @@ public class Measure implements Serializable {
 	
 	public static List<Measure> getAll() {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		em.getEntityManagerFactory().getCache().evictAll();
 	    List<Measure> list = em.createNamedQuery("Measure.findAll", Measure.class).getResultList();
 	    LifeCoachDao.instance.closeConnections(em);
 	    return list;
@@ -179,6 +181,7 @@ public class Measure implements Serializable {
 	
 	public static List<Measure> getMeasureByPersonId(Person p) {
         EntityManager em = LifeCoachDao.instance.createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
         List<Measure> list = em.createNamedQuery("Measure.findByPersonId", Measure.class)
         		.setParameter(1, p)
         		.getResultList();
@@ -188,6 +191,7 @@ public class Measure implements Serializable {
 	
 	public static List<Measure> getCurrentHealthById(Person p) {
         EntityManager em = LifeCoachDao.instance.createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
         List<Measure> list = em.createNamedQuery("Measure.currentHealth", Measure.class)
         		.setParameter(1, p)
         		.getResultList();
@@ -198,6 +202,7 @@ public class Measure implements Serializable {
 	
 	public static List<Measure> getVitalSigns(Person p,MeasureDefinition m1, MeasureDefinition m2) {
         EntityManager em = LifeCoachDao.instance.createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
         List<Measure> list = em.createNamedQuery("Measure.findVitalSigns", Measure.class)
         		.setParameter(1, p)
         		.setParameter(2, m1)

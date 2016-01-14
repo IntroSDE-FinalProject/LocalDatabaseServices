@@ -98,6 +98,7 @@ public class MeasureDefinition implements Serializable {
 	// database operations
 	public static MeasureDefinition getMeasureDefinitionById(int personId) {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		em.getEntityManagerFactory().getCache().evictAll();
 		MeasureDefinition p = em.find(MeasureDefinition.class, personId);
 		LifeCoachDao.instance.closeConnections(em);
 		return p;
@@ -105,6 +106,7 @@ public class MeasureDefinition implements Serializable {
 	
 	public static List<MeasureDefinition> getAll() {
 		EntityManager em = LifeCoachDao.instance.createEntityManager();
+		em.getEntityManagerFactory().getCache().evictAll();
 	    List<MeasureDefinition> list = em.createNamedQuery("MeasureDefinition.findAll", MeasureDefinition.class).getResultList();
 	    LifeCoachDao.instance.closeConnections(em);
 	    return list;

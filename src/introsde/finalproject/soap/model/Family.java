@@ -124,6 +124,7 @@ public class Family implements Serializable {
 	// Database operations
     public static Family getFamilyById(int idFamily) {
         EntityManager em = LifeCoachDao.instance.createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
         Family p = em.find(Family.class, idFamily);
         LifeCoachDao.instance.closeConnections(em);
         return p;
@@ -131,6 +132,7 @@ public class Family implements Serializable {
     
     public static List<Family> getAll() {
         EntityManager em = LifeCoachDao.instance.createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
         List<Family> list = em.createNamedQuery("Family.findAll", Family.class).getResultList();
         LifeCoachDao.instance.closeConnections(em);
         return list;

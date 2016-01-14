@@ -185,6 +185,7 @@ public class Person implements Serializable {
     // Database operations 
     public static Person getPersonById(int idPerson) {
         EntityManager em = LifeCoachDao.instance.createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
         Person p = em.find(Person.class, idPerson);
         LifeCoachDao.instance.closeConnections(em);
         return p;
@@ -192,6 +193,7 @@ public class Person implements Serializable {
     
     public static List<Person> getAll() {
         EntityManager em = LifeCoachDao.instance.createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
         List<Person> list = em.createNamedQuery("Person.findAll", Person.class).getResultList();
         LifeCoachDao.instance.closeConnections(em);
         return list;

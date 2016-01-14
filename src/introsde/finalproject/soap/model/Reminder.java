@@ -187,6 +187,7 @@ public class Reminder implements Serializable {
 	// Database operations
     public static Reminder getReminderById(int idReminder) {
         EntityManager em = LifeCoachDao.instance.createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
         Reminder p = em.find(Reminder.class, idReminder);
         LifeCoachDao.instance.closeConnections(em);
         return p;
@@ -195,6 +196,7 @@ public class Reminder implements Serializable {
  // Database operations 
     public static List<Reminder> getReminderByPersonId(Person p) {
         EntityManager em = LifeCoachDao.instance.createEntityManager();
+        em.getEntityManagerFactory().getCache().evictAll();
         List<Reminder> list = em.createNamedQuery("Reminder.findByPersonId", Reminder.class)
         		.setParameter(1, p)
         		.getResultList();
