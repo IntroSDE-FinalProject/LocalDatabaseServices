@@ -141,7 +141,7 @@ public interface People {
     
     @WebMethod(operationName="getMeasureDefinition")
     @WebResult(name="measureDefinition") 
-    public List<MeasureDefinition> getMeasureDefinition();
+    public ListMeasureDefinitionWrapper getMeasureDefinition();
     
     
 }

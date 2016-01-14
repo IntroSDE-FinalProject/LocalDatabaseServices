@@ -775,8 +775,10 @@ public class PeopleImpl implements People {
 	 * @return List of measure definition
 	 */
 	@Override
-	public List<MeasureDefinition> getMeasureDefinition() {
-		return MeasureDefinition.getAll();
+	public ListMeasureDefinitionWrapper getMeasureDefinition() {
+		ListMeasureDefinitionWrapper lmdWrapper = new ListMeasureDefinitionWrapper();
+		lmdWrapper.setMeasureDefinition(MeasureDefinition.getAll());
+		return lmdWrapper;
 	}
 	
 }
