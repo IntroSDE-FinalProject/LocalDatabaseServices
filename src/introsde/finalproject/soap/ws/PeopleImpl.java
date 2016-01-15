@@ -551,10 +551,10 @@ public class PeopleImpl implements People {
 	
 	
 	/**
-     * This method is used to update a specified reminder passed as parameter
+     * This method is used to update a specified target passed as parameter
      * 
-     * @param reminder
-     * @return idReminder just updated
+     * @param target
+     * @return idTarget just updated
      */
 	@Override
 	public int updateTarget(Target target) {
