@@ -112,7 +112,7 @@ public class Family implements Serializable {
 		this.role = role;
 	}
 	
-	
+	@XmlElement(required=true)
 	public Person getPerson() {
 		return person;
 	}
