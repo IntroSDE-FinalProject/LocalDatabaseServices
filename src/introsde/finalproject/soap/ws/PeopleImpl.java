@@ -432,6 +432,7 @@ public class PeopleImpl implements People {
     		if(id!= 0){
     			if(Reminder.getReminderById(id) != null){
     				Reminder r = Reminder.getReminderById(id);
+    				reminder.setPerson(r.getPerson());
     				
     				if(reminder.getAutocreate() == null){
     					reminder.setAutocreate(r.getAutocreate());
@@ -563,6 +564,7 @@ public class PeopleImpl implements People {
     			if(Target.getTargetById(id) != null){
     				Target t = Target.getTargetById(id);
     				target.setMeasureDefinition(t.getMeasureDefinition());
+    				target.setPerson(t.getPerson());
     				
     				if(target.getAchieved() == null){
     					target.setAchieved(t.getAchieved());
@@ -711,7 +713,8 @@ public class PeopleImpl implements People {
  			if(id!=0){
  				if(Target.getTargetById(id) != null){
  					Measure m = Measure.getMeasureById(id);
- 		 	 		
+ 					measure.setPerson(m.getPerson());
+ 					
  		 	 		if(measure.getIdMeasure() == 0){
  		 	 			measure.setIdMeasure(m.getIdMeasure());
  		 	 		}
