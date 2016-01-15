@@ -112,7 +112,7 @@ public class Family implements Serializable {
 		this.role = role;
 	}
 	
-	@XmlTransient
+	
 	public Person getPerson() {
 		return person;
 	}
