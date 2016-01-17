@@ -2,8 +2,8 @@
 
 The Local Database Service is a SOAP web service. It is on top of a database in order to provide data to the [Storage Service](https://github.com/introsde-2015-FinalProject/StorageServices). It is responsible for handling all persistence tasks on the database.
 
-[API Documentation](https://github.com/introsde-2015-FinalProject/LocalDatabaseServices/wiki/API-Documentation)  
-[URL of the server (heroku)](https://lds-hidden-taiga-5842.herokuapp.com/sdelab)  
+[API Documentation](http://docs.localdatabaseservice.apiary.io/#)  
+[URL of the server (heroku)](http://lds-hidden-taiga-5842.herokuapp.com/ws/people)  
 [WSDL file](https://lds-hidden-taiga-5842.herokuapp.com/ws/people?wsdl)
 
 ### Install
